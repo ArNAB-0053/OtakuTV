@@ -59,8 +59,8 @@ const page = ({ params }) => {
   return (
     <div className="w-screen p-6 lg:px-10 xl:px-28 lg:py-10">
       <div key={anime.mal_id} className="flex items-center justify-center">
-        <div className="w-full h-auto grid grid-cols-1 grid-rows-1 md:grid-cols-[12rem_1fr] lg:grid-cols-[22rem_1fr] lg:grid-rows-2">
-          <div className="w-[55%] md:w-[10rem] lg:w-[19rem] h-auto lg:row-span-2">
+        <div className="w-full h-auto grid grid-cols-[10rem_1fr] grid-rows-2 lg:grid-cols-[16rem_minmax(500px,_1fr)_200px] xl:grid-cols-[22rem_minmax(500px,_1fr)_200px] lg:grid-rows-1 ">
+          <div className="w-[7rem] lg:w-[12rem] xl:w-[19rem] h-auto col-span-1 row-span-1">
             {anime.images &&
               anime.images.jpg &&
               anime.images.jpg.large_image_url && (
@@ -73,7 +73,8 @@ const page = ({ params }) => {
                 />
               )}
           </div>
-          <div className="text-sm flex items-start justify-start flex-col gap-y-4">
+          <div className="text-sm lg:pr-10 row-start-2 col-span-2 lg:row-start-1 lg:col-start-2 lg:col-span-1 grid grid-cols-1 grid-rows-2">
+            <div>
               <h1 className="text-start text-2xl">{anime.title_english}</h1>
               <div className="flex items-center justify-start space-x-3">
                 <span className="bg-red-600 px-3 rounded-[2px] py-[2px]">
@@ -84,14 +85,6 @@ const page = ({ params }) => {
                 </span>
                 <span className="bg-[#262626] px-3 rounded-[2px] py-[2px]">
                   {durationDetails()}
-                </span>
-              </div>
-              <div className="w-full md:w-[20rem] max-h-24 border-gray-500 border flex items-center justify-center flex-col gap-y-2 rounded-[2px] py-[2px]">
-                <Star_rating stars={anime.score / 2} />
-                <span className="h-[1px] w-full bg-gray-500"></span>
-                <span className="flex text-gray-500 items-center justify-center">
-                  <FaStar />
-                  {anime.score}/10({anime.scored_by} Votes)
                 </span>
               </div>
               <span>
@@ -107,14 +100,11 @@ const page = ({ params }) => {
                   {showMore ? "Less" : "More"}
                 </button>
               </span>
-          </div>
-          <div className="mt-6">
+            </div>
+            <div>
               <Animedetail
                 type={anime.type}
-                season={
-                  anime.season?.charAt(0).toUpperCase() +
-                  anime.season?.slice(1).toLowerCase()
-                }
+                season={anime.season?.charAt(0).toUpperCase() + anime.season?.slice(1).toLowerCase()}
                 year={anime.year}
                 premiered={anime.aired?.prop?.from.year || "N/A"}
                 duration={durationDetails()}
@@ -142,7 +132,7 @@ const page = ({ params }) => {
                   </span>
                 }
                 genres={
-                  <span className="flex items-center justify-start flex-wrap gap-2">
+                  <span className="flex items-center justify-center gap-2">
                     {anime.genres?.length > 0
                       ? anime.genres.map((genre, index) => (
                           <span
@@ -156,6 +146,15 @@ const page = ({ params }) => {
                   </span>
                 }
               />
+            </div>
+          </div>
+          <div className="w-full md:w-[30rem] lg:w-full max-h-24 col-span-1 row-span-1 border-gray-500 border flex items-center justify-center flex-col gap-y-2 rounded-[2px] py-[2px]">
+            <Star_rating stars={anime.score / 2} />
+            <span className="h-[1px] w-full bg-gray-500"></span>
+            <span className="flex text-gray-500 items-center justify-center">
+              <FaStar />
+              {anime.score}/10({anime.scored_by} Votes)
+            </span>
           </div>
         </div>
       </div>

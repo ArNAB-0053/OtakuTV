@@ -66,9 +66,18 @@
   body {
     @apply bg-background text-foreground;
   }
-  /* .icon {
-    @apply w-20
+  .TableRow {
+    @apply grid grid-cols-[6rem_1fr]
+  }
+  /* .TableCell {
+    @apply 
   } */
+  .TableCellText {
+    @apply w-full md:w-[14rem] lg:w-full
+  }
+  .Table {
+    @apply w-full flex items-start justify-start flex-col
+  }
 }
 
 .animedet {
