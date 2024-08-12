@@ -9,7 +9,7 @@ const nextConfig = {
           },
           {
             protocol: 'https',
-            hostname: 'img.youtube.com',
+            hostname: 'www.youtube.com',
             port: '',
           },
         ],

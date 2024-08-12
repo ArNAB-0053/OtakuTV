@@ -5,6 +5,8 @@ import React, { useEffect, useState } from "react";
 import Star_rating from "@/components/Star_rating";
 import { FaStar } from "react-icons/fa";
 import Animedetail from "@/components/Animedetail";
+import Trailer from "@/components/Trailer";
+import Staff from "@/components/Staff";
 
 const page = ({ params }) => {
   const { animeId } = params;
@@ -57,10 +59,10 @@ const page = ({ params }) => {
   };
 
   return (
-    <div className="w-screen p-6 lg:px-10 xl:px-28 lg:py-10">
+    <div className="w-screen flex items-center justify-center flex-col padding">
       <div key={anime.mal_id} className="flex items-center justify-center">
-        <div className="w-full h-auto grid grid-cols-1 grid-rows-1 md:grid-cols-[12rem_1fr] lg:grid-cols-[22rem_1fr] lg:grid-rows-2">
-          <div className="w-[55%] md:w-[10rem] lg:w-[19rem] h-auto lg:row-span-2">
+        <div className="w-full h-auto grid grid-cols-1 grid-rows-1 md:grid-cols-[17rem_1fr] lg:grid-cols-[22rem_1fr] lg:grid-rows-2">
+          <div className="w-[55%] md:mt-4 md:w-[13rem] lg:w-[19rem] h-auto lg:row-span-2">
             {anime.images &&
               anime.images.jpg &&
               anime.images.jpg.large_image_url && (
@@ -69,96 +71,123 @@ const page = ({ params }) => {
                   width={200}
                   height={200}
                   className="w-full rounded-[0.6rem]"
-                  alt={anime.title}
+                  alt={anime.title_english || anime.title}
                 />
               )}
           </div>
-          <div className="text-sm flex items-start justify-start flex-col gap-y-4">
-              <h1 className="text-start text-2xl">{anime.title_english}</h1>
-              <div className="flex items-center justify-start space-x-3">
-                <span className="bg-red-600 px-3 rounded-[2px] py-[2px]">
-                  {anime.type}
-                </span>
-                <span className="border-gray-600/60 border-solid border px-3 rounded-[2px] py-[2px]">
-                  {ratingDescriptions[anime.rating] || "Unknown"}
-                </span>
-                <span className="bg-[#262626] px-3 rounded-[2px] py-[2px]">
-                  {durationDetails()}
-                </span>
-              </div>
-              <div className="w-full md:w-[20rem] max-h-24 border-gray-500 border flex items-center justify-center flex-col gap-y-2 rounded-[2px] py-[2px]">
-                <Star_rating stars={anime.score / 2} />
-                <span className="h-[1px] w-full bg-gray-500"></span>
-                <span className="flex text-gray-500 items-center justify-center">
-                  <FaStar />
-                  {anime.score}/10({anime.scored_by} Votes)
-                </span>
-              </div>
-              <span>
-                {showMore
-                  ? anime.synopsis
-                  : anime.synopsis?.substring(0, 250) + "..."}
-                <button
-                  className="font-bold bg-red-600 px-3 py-[2px]"
-                  onClick={() => {
-                    setShowMore(!showMore);
-                  }}
-                >
-                  {showMore ? "Less" : "More"}
-                </button>
+          <div className="text-sm h-fit flex items-start justify-start flex-col gap-y-4">
+            <h1 className="mt-4 md:mt-0 text-start flex items-center justify-start text-xl md:text-2xl lg:text-5xl gap-x-2">
+              {anime.title_english || anime.title}
+              <span className="bg-rank text-xs font-semibold text-white p-2 rounded">
+                {anime.rank}
               </span>
+            </h1>
+
+            <div className="flex items-center justify-start space-x-3">
+              <span className="bg-red-600 text-white px-3 rounded-[2px] py-[5px]">
+                {anime.type}
+              </span>
+              <span className="border-bgitem border-solid border px-3 rounded-[2px] py-[5px]">
+                {ratingDescriptions[anime.rating] || "Unknown"}
+              </span>
+              <span className="bg-bgitem px-3 rounded-[2px] py-[5px]">
+                {durationDetails()}
+              </span>
+              <p className="bg-bgitem px-3 py-[5px]">
+                {(anime.demographics && anime.demographics[0]?.name) || "N/A"}
+              </p>
+            </div>
+
+            <div className="w-full md:w-[17rem] h-24 border-gray-500 border flex items-center justify-center flex-col gap-y-2 rounded-[2px] py-[2px]">
+              <Star_rating stars={anime.score / 2} />
+              <span className="h-[1px] w-full bg-muted"></span>
+              <span className="flex text-muted items-center justify-center">
+                <FaStar />
+                {anime.score}/10({anime.scored_by} Votes)
+              </span>
+            </div>
+
+            <span className={`${showMore ? "mb-4" : "mb-4"} text-destructive`}>
+              {showMore
+                ? anime.synopsis
+                : anime.synopsis?.substring(0, 250) + "..."}
+              <button
+                className="font-bold text-sm bg-bgitem px-3 ml-1 py-[2px]"
+                onClick={() => {
+                  setShowMore(!showMore);
+                }}
+              >
+                {showMore ? "less" : "more"}
+              </button>
+            </span>
           </div>
-          <div className="mt-6">
-              <Animedetail
-                type={anime.type}
-                season={
-                  anime.season?.charAt(0).toUpperCase() +
-                  anime.season?.slice(1).toLowerCase()
-                }
-                year={anime.year}
-                premiered={anime.aired?.prop?.from.year || "N/A"}
-                duration={durationDetails()}
-                status={anime.status}
-                studios={
-                  anime.studios && anime.studios.length > 0
-                    ? anime.studios.map((studio) => studio.name).join(", ")
-                    : "N/A"
-                }
-                aired={anime.aired?.string}
-                eps={anime.episodes}
-                japanese={anime.title_japanese}
-                themes={
-                  <span className="flex items-center justify-start gap-2">
-                    {anime.themes?.length > 0
-                      ? anime.themes.map((theme, index) => (
-                          <span
-                            key={index}
-                            className="bg-[#212121] min-w-24 flex items-center justify-center px-2 py-1 rounded-md"
-                          >
-                            {theme.name}
-                          </span>
-                        ))
-                      : "N/A"}
-                  </span>
-                }
-                genres={
-                  <span className="flex items-center justify-start flex-wrap gap-2">
-                    {anime.genres?.length > 0
-                      ? anime.genres.map((genre, index) => (
-                          <span
-                            key={index}
-                            className="border border-gray-300 px-2 py-1 rounded-md"
-                          >
-                            {genre.name}
-                          </span>
-                        ))
-                      : "N/A"}
-                  </span>
-                }
-              />
+          <div className="">
+            <Animedetail
+              type={anime.type}
+              season={
+                anime.season?.charAt(0).toUpperCase() +
+                anime.season?.slice(1).toLowerCase()
+              }
+              year={anime.year}
+              premiered={anime.aired?.prop?.from.year || "N/A"}
+              duration={durationDetails()}
+              status={anime.status}
+              studios={
+                anime.studios && anime.studios.length > 0
+                  ? anime.studios.map((studio) => studio.name).join(", ")
+                  : "N/A"
+              }
+              aired={anime.aired?.string}
+              eps={anime.episodes}
+              japanese={anime.title_japanese}
+              themes={
+                <span className="flex items-center justify-start flex-wrap gap-2">
+                  {anime.themes?.length > 0
+                    ? anime.themes.map((theme, index) => (
+                        <span
+                          key={index}
+                          className="bg-bgitem min-w-24 flex items-center justify-center px-2 py-1 rounded"
+                        >
+                          {theme.name}
+                        </span>
+                      ))
+                    : "N/A"}
+                </span>
+              }
+              genres={
+                <span className="flex items-center justify-start flex-wrap gap-2">
+                  {anime.genres?.length > 0
+                    ? anime.genres.map((genre, index) => (
+                        <span
+                          key={index}
+                          className="border border-gray-300 px-2 py-1 rounded-md"
+                        >
+                          {genre.name}
+                        </span>
+                      ))
+                    : "N/A"}
+                </span>
+              }
+              producers={
+                <span className="flex items-center justify-start flex-wrap gap-2">
+                  {anime.producers?.length > 0
+                    ? anime.producers.map((producer, index) => (
+                        <span
+                          key={index}
+                          className="border-l border-black dark:border-white border-r px-3"
+                        >
+                          {producer.name}
+                        </span>
+                      ))
+                    : "N/A"}
+                </span>
+              }
+            />
           </div>
         </div>
       </div>
+      <Trailer vdolink={anime.trailer?.embed_url} />
+      <Staff animeID={animeId} />
     </div>
   );
 };

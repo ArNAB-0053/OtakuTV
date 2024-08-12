@@ -56,9 +56,9 @@ const Body = ({ page, handlePageChange, param }) => {
               width={200}
               height={200}
               className="w-40 h-60 md:w-44"
-              alt={anime.title}
+              alt={anime.title_english || anime.title}
             />
-            <h1 className="mt-2 truncate w-36 text-center">{anime.title}</h1>
+            <h1 className="mt-2 truncate w-36 text-center">{anime.title_english || anime.title}</h1>
           </Link>
         ))}
       </div>
