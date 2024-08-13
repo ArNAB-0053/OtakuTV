@@ -6,7 +6,7 @@ import Star_rating from "@/components/Star_rating";
 import { FaStar } from "react-icons/fa";
 import Animedetail from "@/components/Animedetail";
 import Trailer from "@/components/Trailer";
-import Staff from "@/components/Staff";
+import Staff from "@/components/staff/Staff";
 
 const page = ({ params }) => {
   const { animeId } = params;

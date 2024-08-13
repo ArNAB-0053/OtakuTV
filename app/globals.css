@@ -64,10 +64,9 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
     --bgitem: #272e41;
+    /* --bgitem: #4e649e; */
   }
 }
-
-
 
 @layer base {
   * {
@@ -77,20 +76,20 @@
     @apply bg-background text-foreground;
   }
   .TableRow {
-    @apply grid grid-cols-[6rem_1fr]
+    @apply grid grid-cols-[6rem_1fr];
   }
   .TableCellText {
-    @apply w-full md:w-[18rem] lg:w-full text-destructive flex items-start justify-start flex-wrap
+    @apply w-full md:w-[18rem] lg:w-full text-destructive flex items-start justify-start flex-wrap;
   }
   .Table {
-    @apply w-full flex items-start justify-center flex-col text-muted
+    @apply w-full flex items-start justify-center flex-col text-muted;
   }
   .tablebody {
-    @apply flex items-center justify-center mt-[-4px]
+    @apply flex items-center justify-center mt-[-4px];
   }
 
   .padding {
-    @apply p-6 lg:px-10 xl:px-28 lg:py-10
+    @apply p-6 lg:px-10 xl:px-28 lg:py-10;
   }
 }
 
@@ -102,3 +101,14 @@
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.18);
 }
+
+.viewallstaff {
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 10px;
+}
+
+
+
+/* Serchbar */
