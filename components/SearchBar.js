@@ -9,7 +9,7 @@ const SearchBar = ({ searchTerm, onSearchChange, searchwhat }) => {
         value={searchTerm}
         onChange={(e) => onSearchChange(e.target.value)}
         placeholder={`Search ${searchwhat}...`}
-        className="w-full pl-2 rounded-full appearance-none outline-none bg-transparent"
+        className="w-full pl-2 rounded-full appearance-none outline-none bg-transparent "
       />
     </span>
   );

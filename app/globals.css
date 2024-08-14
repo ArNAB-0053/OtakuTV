@@ -1,6 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Pathway+Extreme:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: Gintronic;
+  src: url("/public/GintronicMediumItalic.otf");
+}
 
 /* Using 
   => destructive -> Anime details TableCell Heading
@@ -109,6 +119,21 @@
   border-radius: 10px;
 }
 
+.glass {
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+backdrop-filter: blur( 18.5px );
+-webkit-backdrop-filter: blur( 18.5px );
+}
+
+
+* {
+  font-family: "Montserrat", "Pathway Extreme", "Raleway", sans-serif;
+}
+
+input::placeholder {
+  color: var(--background);
+  opacity: 1; /* Firefox */
+}
 
 
 /* Serchbar */

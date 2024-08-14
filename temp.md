@@ -5,19 +5,25 @@
                 */}
 
 
-{isViewingAll && (
-          <div className="fixed bg-white/30 top-[50%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 w-screen h-screen overflow-hidden">
-            <div className="grid grid-cols-2 md:grid-cols-3 place-items-start gap-x-16 gap-y-6">
-              {stafff?.length > 0 &&
-                stafff.map((staffff) => {
-                  return (
-                    <Fetchstaff
-                      url={staffff.person?.url}
-                      image_url={staffff?.person?.images?.jpg.image_url}
-                      positions={staffff.positions}
-                      name={staffff.person?.name}
-                    />
-                  );
-                })}
+{characters.length > 0 &&
+        characters.slice(0, 6).map((character) => {
+          return (
+            // eslint-disable-next-line react/jsx-key
+            <div>
+              <FetchCharacters
+                char_image_url={character.character?.images?.jpg?.image_url}
+                char_name={character.character?.name}
+                role={character && character.role}
+              />
+              <FetchVoiceActor
+                vc_image_url={
+                  character.voice_actors[0].person?.images?.jpg?.image_url
+                }
+                vc_name={character.voice_actors[0].person?.name}
+                lang={
+                  character.voice_actors && character.voice_actors[0].language
+                }
+              />
             </div>
-          </div>
+          );
+        })}

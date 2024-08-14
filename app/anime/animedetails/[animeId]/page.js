@@ -7,6 +7,7 @@ import { FaStar } from "react-icons/fa";
 import Animedetail from "@/components/Animedetail";
 import Trailer from "@/components/Trailer";
 import Staff from "@/components/staff/Staff";
+import Characters from "@/components/Characters/Characters";
 
 const page = ({ params }) => {
   const { animeId } = params;
@@ -76,12 +77,12 @@ const page = ({ params }) => {
               )}
           </div>
           <div className="text-sm h-fit flex items-start justify-start flex-col gap-y-4">
-            <h1 className="mt-4 md:mt-0 text-start flex items-center justify-start text-xl md:text-2xl lg:text-5xl gap-x-2">
-              {anime.title_english || anime.title}
-              <span className="bg-rank text-xs font-semibold text-white p-2 rounded">
+            <span className="mt-4 md:mt-0 text-start flex items-center justify-start text-xl md:text-2xl lg:text-5xl gap-x-2 ">
+              <h1 className="font-bold">{anime.title_english || anime.title}</h1>
+              <p className="bg-rank text-xs font-semibold text-white p-2 rounded">
                 {anime.rank}
-              </span>
-            </h1>
+              </p>
+            </span>
 
             <div className="flex items-center justify-start space-x-3">
               <span className="bg-red-600 text-white px-3 rounded-[2px] py-[5px]">
@@ -112,7 +113,7 @@ const page = ({ params }) => {
                 ? anime.synopsis
                 : anime.synopsis?.substring(0, 250) + "..."}
               <button
-                className="font-bold text-sm bg-bgitem px-3 ml-1 py-[2px]"
+                className="font-bold text-xs bg-bgitem px-3 ml-1 py-[2px] font-[Gintronic]"
                 onClick={() => {
                   setShowMore(!showMore);
                 }}
@@ -187,6 +188,7 @@ const page = ({ params }) => {
         </div>
       </div>
       <Trailer vdolink={anime.trailer?.embed_url} />
+      <Characters animeID={animeId} />
       <Staff animeID={animeId} />
     </div>
   );

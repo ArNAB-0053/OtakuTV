@@ -7,7 +7,7 @@ import { Button } from "../ui/button";
 import Fetchstaff from "./Fetchstaff";
 import SearchBar from "@/components/SearchBar";
 
-const Staff = ({ staff, animeID }) => {
+const Staff = ({ animeID }) => {
   const [stafff, setStaff] = useState([]);
   const [isViewingAll, setIsViewingAll] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -79,8 +79,8 @@ const Staff = ({ staff, animeID }) => {
   });
 
   return (
-    <div className="flex items-start justify-start flex-col w-full">
-      <h1>Staff</h1>
+    <div className="flex items-start justify-start flex-col w-full mt-10">
+      <h1 className="text-3xl font-bold mb-4">Staff</h1>
       <div className="grid grid-cols-2 md:grid-cols-3 place-items-start gap-x-16 gap-y-6">
         {stafff?.length > 0 &&
           stafff.slice(0, 6).map((staffff) => {
@@ -102,9 +102,9 @@ const Staff = ({ staff, animeID }) => {
 
         {isViewingAll && (
           <div className="viewallstaff bg-background/25 fixed top-[50%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 w-screen h-screen overflow-hidden flex items-center justify-center">
-            <div className="w-[90%] h-[80%] md:w-[80%] md:h-[80%] lg:w-[60%] lg:h-[60%] bg-bgitem flex flex-col items-start justify-center p-4 rounded-md">
+            <div className="w-[90%] h-[80%] md:w-[80%] md:h-[80%] lg:w-[60%] lg:h-[60%] bg-[#caa2f8] dark:bg-bgitem flex flex-col items-start justify-center p-4 rounded-md">
               <div className="flex items-center justify-between w-full mb-4">
-                <h3 className="text-3xl">Staff</h3>
+                <h3 className="text-3xl font-bold">Staff</h3>
                 <span className="w-[40%] border bg-transparent text-sm">
                   <SearchBar
                     searchTerm={searchTerm}
