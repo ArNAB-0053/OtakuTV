@@ -12,7 +12,6 @@ const Staff = ({ animeID }) => {
   const [isViewingAll, setIsViewingAll] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
-
   const getStaff = async (animeID) => {
     try {
       const res = await axios.get(
@@ -78,6 +77,11 @@ const Staff = ({ animeID }) => {
     );
   });
 
+  const getPos = (pos) => {
+    const poss = pos.join(", ");
+    return poss.length > 33 ? poss.slice(0, 33) + "..." : poss;
+  };
+
   return (
     <div className="flex items-start justify-start flex-col w-full mt-10">
       <h1 className="text-3xl font-bold mb-4">Staff</h1>
@@ -88,24 +92,24 @@ const Staff = ({ animeID }) => {
               <Fetchstaff
                 url={staffff.person?.url}
                 image_url={staffff?.person?.images?.jpg.image_url}
-                positions={staffff.positions}
-                name={staffff.person?.name}
+                positions={getPos(staffff.positions)}
+                name={staffff.person?.name.replace(/,/g, "")}
               />
             );
           })}
 
         {stafff.length > 9 && (
           <Button onClick={handleOpenStaff}>
-            {isViewingAll ? "Show Less" : "View All"}
+            View All
           </Button>
         )}
 
         {isViewingAll && (
           <div className="viewallstaff bg-background/25 fixed top-[50%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 w-screen h-screen overflow-hidden flex items-center justify-center">
-            <div className="w-[90%] h-[80%] md:w-[80%] md:h-[80%] lg:w-[60%] lg:h-[60%] bg-[#caa2f8] dark:bg-bgitem flex flex-col items-start justify-center p-4 rounded-md">
-              <div className="flex items-center justify-between w-full mb-4">
+            <div className="w-[90%] h-[80%] md:w-[80%] md:h-[80%] lg:w-[60%] lg:h-[60%] bg-bgitem flex flex-col items-start justify-center lg:p-8 p-4 rounded-md">
+              <div className="flex items-start justify-between flex-col md:flex-row w-full mb-6 gap-y-3 relative">
                 <h3 className="text-3xl font-bold">Staff</h3>
-                <span className="w-[40%] border bg-transparent text-sm">
+                <span className="w-[99%] md:w-[50%] border bg-transparent text-sm">
                   <SearchBar
                     searchTerm={searchTerm}
                     onSearchChange={handleSearchChange}
@@ -113,7 +117,7 @@ const Staff = ({ animeID }) => {
                   />
                 </span>
                 <Button
-                  className="bg-red-600 text-white hover:text-red-600"
+                  className="bg-red-600 text-white hover:text-red-600 absolute right-0 md:relative" 
                   onClick={handleCloseStaff}
                 >
                   <ImCross />
@@ -126,8 +130,8 @@ const Staff = ({ animeID }) => {
                       <Fetchstaff
                         url={staffff.person?.url}
                         image_url={staffff?.person?.images?.jpg.image_url}
-                        positions={staffff.positions}
-                        name={staffff.person?.name}
+                        positions={getPos(staffff.positions)}
+                        name={staffff.person?.name.replace(/,/g, "")}
                       />
                     );
                   })

@@ -77,11 +77,14 @@ const page = ({ params }) => {
               )}
           </div>
           <div className="text-sm h-fit flex items-start justify-start flex-col gap-y-4">
+            {/* <p className="bg-rank text-sm font-semibold text-white px-4 py-1 rounded">
+              <span>Rank: </span>
+              {anime.rank}
+            </p> */}
             <span className="mt-4 md:mt-0 text-start flex items-center justify-start text-xl md:text-2xl lg:text-5xl gap-x-2 ">
-              <h1 className="font-bold">{anime.title_english || anime.title}</h1>
-              <p className="bg-rank text-xs font-semibold text-white p-2 rounded">
-                {anime.rank}
-              </p>
+              <h1 className="font-bold flex">
+                {anime.title_english || anime.title}
+              </h1>
             </span>
 
             <div className="flex items-center justify-start space-x-3">
