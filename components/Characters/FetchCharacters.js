@@ -14,7 +14,7 @@ const FetchCharacters = ({ char_image_url, char_name, role }) => {
       />
 
       <span className="flex flex-col flex-wrap items-start justify-center w-[11.4rem]">
-        <p className="text-sm font-semibold">{char_name}</p>
+        <p className="text-sm font-semibold text-end">{char_name}</p>
         <p className="text-xs text-muted">{role}</p>
       </span>
     </div>

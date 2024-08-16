@@ -84,7 +84,7 @@ const Staff = ({ animeID }) => {
 
   return (
     <div className="flex items-start justify-start flex-col w-full mt-10">
-      <h1 className="text-3xl font-bold mb-4">Staff</h1>
+      <h1 className="text-3xl font-bold mb-4 uppercase">Staff</h1>
       <div className="grid grid-cols-2 md:grid-cols-3 place-items-start gap-x-16 gap-y-6">
         {stafff?.length > 0 &&
           stafff.slice(0, 6).map((staffff) => {

@@ -61,27 +61,26 @@ const Characters = ({ animeID }) => {
     const searchLower = searchTerm.toLowerCase();
     const name = char.character?.name?.toLowerCase() || "";
     const role = char.role?.toLowerCase() || "";
-  
-    // Check if either the name or role matches the search term
-    const matchesSearch = name.includes(searchLower) || role.includes(searchLower);
-  
+
+    const matchesSearch =
+      name.includes(searchLower) || role.includes(searchLower);
+
     const selectedVoiceActor =
       selectedLanguage !== "all"
         ? char.voice_actors.find(
             (va) => va.language.toLowerCase() === selectedLanguage.toLowerCase()
           )
         : char.voice_actors[0];
-  
+
     const matchesLanguage = selectedLanguage === "all" || selectedVoiceActor;
-  
+
     return matchesSearch && matchesLanguage;
   });
-  
 
   return (
     <div className="flex items-start justify-start flex-col gap-y-2 place-self-start">
       <span className="flex items-center justify-between w-full">
-        <h1 className="text-3xl font-bold mb-4">Characters</h1>
+        <h1 className="text-3xl font-bold mb-4 uppercase">Characters</h1>
         <SelectOption
           handleSelectChange={handleSelectChange}
           selectedLanguage={selectedLanguage}

@@ -4,7 +4,7 @@ import { MdErrorOutline } from "react-icons/md";
 const Trailer = ({ vdolink }) => {
   return (
     <div className="w-screen flex items-start justify-start flex-col padding gap-x-8">
-      <h1 className="text-3xl font-bold mb-4">Trailer</h1>
+      <h1 className="text-3xl font-bold mb-4 uppercase">Trailer</h1>
       <span className="w-full bg-[#282828] lg:w-[50rem] h-auto aspect-video flex items-center justify-center select-none">
         {vdolink ? (
           <iframe

@@ -46,12 +46,12 @@ const SelectLanguage = ({ characters, selectedLanguage, upto = 3 }) => {
                   </div>
                 ) : (
                   <div className="w-full flex items-center justify-end ml-[-3rem] col-span-1 md:col-span-2">
-                    <span className="w-[1rem] h-[1px] bg-white/40"></span>
+                    <span className="w-[1rem] h-[1px] dark:bg-white/40 bg-black/50"></span>
                   </div>
                 )}
               </div>
               {index < upto - 1 && (
-                <div className="w-full h-[0.1px] bg-white/20"></div>
+                <div className="w-full h-[0.1px] dark:bg-white/20 bg-black/20"></div>
               )}
             </>
           );
