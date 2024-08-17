@@ -25,7 +25,7 @@ const Animedetail = ({
 }) => {
   return (
     <>
-      <div className="flex items-start justify-start md:gap-x-16 md:mt-4 lg:gap-x-0 xl:gap-x-16 flex-col md:flex-row">
+      <div className="w-full flex items-start justify-start md:gap-x-16 md:mt-4 lg:gap-x-0 xl:gap-x-16 flex-col md:flex-row">
         <Table className="Table">
           <TableBody className="tablebody">
             <TableRow className="TableRow">

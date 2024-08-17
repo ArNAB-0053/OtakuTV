@@ -1,3 +1,4 @@
+"use client"
 import Image from "next/image";
 import React from "react";
 import Star_rating from "@/components/Star_rating";
@@ -39,8 +40,8 @@ const Details = ({ anime }) => {
   };
   return (
     <div key={anime.mal_id} className=" flex items-center justify-center">
-      <div className="w-full h-auto grid grid-cols-1 grid-rows-1 md:grid-cols-[17rem_1fr] lg:grid-cols-[22rem_1fr] lg:grid-rows-2">
-        <div className="w-[55%] md:mt-4 md:w-[13rem] lg:w-[19rem] h-auto lg:row-span-2">
+      <div className="w-full h-auto grid grid-cols-1 grid-rows-1 md:grid-cols-[17rem_1fr] lg:grid-cols-[22rem_1fr] lg:grid-rows-2 place-items-center md:place-items-start">
+        <div className="w-[55%] md:mt-4 md:w-[13rem] lg:w-[19rem] h-auto lg:row-span-2 flex items-center justify-center">
           {anime.images &&
             anime.images.jpg &&
             anime.images.jpg.large_image_url && (
@@ -53,18 +54,14 @@ const Details = ({ anime }) => {
               />
             )}
         </div>
-        <div className="text-sm h-fit flex items-start justify-start flex-col gap-y-4">
-          {/* <p className="bg-rank text-sm font-semibold text-white px-4 py-1 rounded">
-              <>Rank: </>
-              {anime.rank}
-            </p> */}
-          <span className="mt-4 md:mt-0 text-start flex items-center justify-start text-xl md:text-2xl lg:text-5xl gap-x-2 ">
-            <h1 className="font-bold flex text-muted-foreground uppercase">
+        <div className="text-sm h-fit flex items-center md:items-start justify-start flex-col gap-y-4">
+          <span className="mt-4 md:mt-0 text-start flex items-center justify-center text-xl md:text-2xl lg:text-5xl gap-x-2 ">
+            <h1 className="font-bold flex text-center text-muted-foreground uppercase">
               {anime.title_english || anime.title}
             </h1>
           </span>
 
-          <div className="flex items-center justify-start space-x-3 text-destructive">
+          <div className="flex items-center justify-center space-x-3 text-destructive">
             <span className="bg-[#ff0000] px-3 rounded-[2px] py-[5px] text-white font-semibold">
               {anime.type}
             </span>
@@ -104,7 +101,7 @@ const Details = ({ anime }) => {
             </button>
           </span>
         </div>
-        <div className="">
+        <div className="w-full flex items-start justify-between flex-col">
           <Animedetail
             type={anime.type}
             season={
