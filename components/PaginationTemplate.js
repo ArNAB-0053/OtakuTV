@@ -16,7 +16,7 @@ import useSWR from "swr";
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 
-const PaginationTemplate = ({ limit=12, url='/api/anime?' }) => {
+const PaginationTemplate = ({ limit=12, url='/api/anime?', animeLink="anime/animedetails" }) => {
   const [page, setPage] = useState(1);
   const handlePageChange = (newPage) => {
     setPage(newPage);
@@ -38,7 +38,7 @@ const PaginationTemplate = ({ limit=12, url='/api/anime?' }) => {
       <div className="flex flex-wrap gap-8 items-start justify-between w-full">
         {animeList?.map((anime) => (
           <Link
-            href={`anime/animedetails/${anime.mal_id}`}
+            href={`${animeLink}/${anime.mal_id}`}
             key={anime.mal_id}
             className="flex items-center justify-center flex-col"
           >

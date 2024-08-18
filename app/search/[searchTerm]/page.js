@@ -19,7 +19,7 @@ const SearchResultsPage = () => {
       <h1 className="text-xl mb-6 text-center">
         Search Results for <strong className="italic">{`"${decodedSearchTerm}"`}</strong>
       </h1>
-      <PaginationTemplate url={searchUrl} />
+      <PaginationTemplate url={searchUrl} animeLink="/anime/animedetails" />
     </div>
   );
 };
