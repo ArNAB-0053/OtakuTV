@@ -6,39 +6,28 @@ import { Button } from "../ui/button";
 import { ImCross } from "react-icons/im";
 import SearchBar from "../SearchBar";
 import SelectOption from "./SelectOption";
+import useSWR from "swr";
+
+const fetcher = url => axios.get(url).then(res => res.data.data);
 
 const Characters = ({ animeID }) => {
-  const [characters, setCharacters] = useState([]);
   const [uniqueLanguages, setUniqueLanguages] = useState(new Set());
   const [selectedLanguage, setSelectedLanguage] = useState("all");
   const [isViewingAll, setIsViewingAll] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const getCharacters = async (animeID) => {
-    try {
-      const res = await axios.get(
-        `https://api.jikan.moe/v4/anime/${animeID}/characters`
+  const { data, error } = useSWR(`https://api.jikan.moe/v4/anime/${animeID}/characters`, fetcher)
+
+  useEffect(() => {
+    if (data) {
+      const languages = new Set(
+        data.flatMap((character) =>
+          character.voice_actors?.map((vc) => vc.language)
+        )
       );
-      setCharacters(res.data.data);
-    } catch (error) {
-      console.log(error);
+      setUniqueLanguages([...languages]);
     }
-  };
-
-  useEffect(() => {
-    getCharacters(animeID);
-  }, [animeID]);
-
-  useEffect(() => {
-    const fetchLanguages = () => {
-      const languages = characters.flatMap((character) =>
-        character.voice_actors?.map((vc) => vc.language)
-      );
-      setUniqueLanguages(new Set(languages));
-    };
-
-    fetchLanguages();
-  }, [characters]);
+  }, [data]);
 
   const uniqueLanguagesArray = [...uniqueLanguages];
 
@@ -58,7 +47,7 @@ const Characters = ({ animeID }) => {
     setSearchTerm(term);
   };
 
-  const filteredChars = characters.filter((char) => {
+  const filteredChars = data?.filter((char) => {
     const searchLower = searchTerm.toLowerCase();
     const name = char.character?.name?.toLowerCase() || "";
     const role = char.role?.toLowerCase() || "";
@@ -78,6 +67,10 @@ const Characters = ({ animeID }) => {
     return matchesSearch && matchesLanguage;
   });
 
+
+  if(error) return "An Error"
+  if(!data) return "Loading..."
+
   return (
     <div className="flex items-start justify-start flex-col gap-y-2 place-self-start">
       <span className="flex items-start justify-between flex-col md:flex-row w-full">
@@ -90,14 +83,14 @@ const Characters = ({ animeID }) => {
       </span>
 
       <SelectLanguage
-        characters={characters}
+        characters={data}
         selectedLanguage={selectedLanguage}
       />
 
-      {characters.length > 9 && <Button onClick={handleOpen}>View All</Button>}
+      {data.length > 9 && <Button onClick={handleOpen}>View All</Button>}
 
       {isViewingAll && (
-        <div className="viewallstaff bg-background/25 fixed top-[50%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 w-screen h-screen overflow-hidden flex items-center justify-center">
+        <div className="viewallstaff bg-background/25 fixed top-[50%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 w-screen h-screen overflow-hidden flex items-center justify-center z-40">
           <div className="w-[90%] h-[80%] md:w-[80%] md:h-[80%] lg:w-[60%] lg:h-[60%] bg-bgitem dark:bg-bgitem flex flex-col items-start justify-center lg:p-8 p-4 rounded-md">
             <div className="flex items-start justify-between w-full mb-4 flex-col xl:flex-row relative">
               <h3 className="text-3xl font-bold">Character</h3>

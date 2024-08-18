@@ -31,11 +31,11 @@
     --secondary: 240 4.8% 95.9%;
     --secondary-foreground: 240 5.9% 10%;
     --muted: #373434;
-    --muted-foreground: 240 3.8% 46.1%;
+    --muted-foreground: #373434;
     --accent: 240 4.8% 95.9%;
     --accent-foreground: 240 5.9% 10%;
     --destructive: #454545;
-    --destructive-foreground: 0 0% 98%;
+    --destructive-foreground: #454545;
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
     --ring: 240 5.9% 10%;
@@ -46,7 +46,8 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --rank: #8800cc;
-    --bgitem: #d2d1d2;
+    --bgitem: #e4e4e4;
+    --bgtop: #d2d1d271;
   }
 
   .dark {
@@ -61,12 +62,12 @@
     --hoverPrimary: #272e41d2;
     --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
-    --muted: #6D6D6D;
-    --muted-foreground: 240 5% 64.9%;
+    --muted: #898888;
+    --muted-foreground: #fafafa;
     --accent: 240 3.7% 15.9%;
     --accent-foreground: 0 0% 98%;
-    --destructive: #e6e3e6b7;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: #9a9a9a;
+    --destructive-foreground: #e0e0e0;
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
@@ -76,7 +77,8 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
     --bgitem: #272e41;
-    /* --bgitem: #4e649e; */
+    --bgtop: #21263557;
+    --rating: #877c05;
   }
 }
 
@@ -90,8 +92,11 @@
   .TableRow {
     @apply grid grid-cols-[6rem_1fr];
   }
+  .TableCell {
+    @apply text-destructive;
+  }
   .TableCellText {
-    @apply w-full md:w-[18rem] lg:w-full text-destructive flex items-start justify-start flex-wrap;
+    @apply w-full md:w-[18rem] lg:w-full text-destructive-foreground flex items-start justify-start flex-wrap;
   }
   .Table {
     @apply w-full flex items-start justify-center flex-col text-muted;

@@ -8,11 +8,11 @@ const Star_rating = ({ stars }) => {
     return (
       <span key={index}>
         {stars >= index + 1 ? (
-          <FaStar size={30}  color='#6D6D6D' className="icon" />
+          <FaStar size={30}  color='#FFEA00' className="icon" />
         ) : stars >= number ? (
-          <FaStarHalfAlt size={30} color='#6D6D6D' className="icon" />
+          <FaStarHalfAlt size={30} color='#FFEA00' className="icon" />
         ) : (
-          <FaRegStar size={30} color='#6D6D6D' className="icon" />
+          <FaRegStar size={30} color='#FFEA00' className="icon" />
         )}
       </span>
     );

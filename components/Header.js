@@ -3,7 +3,7 @@ import { ModeToggle } from "./ModeToggle";
 
 const Header = () => {
   return (
-    <header className="bg-white dark:bg-gray-900">
+    <header className="bg-white dark:bg-gray-900/50">
       <ModeToggle/>        
     </header>
   );

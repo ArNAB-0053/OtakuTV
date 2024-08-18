@@ -1,11 +1,11 @@
-"use client"
-import { createContext, useContext, useState, useEffect } from 'react';
-import { getDeviceWidth } from '@/lib/deviceWidth';
+"use client";
+import { createContext, useContext, useState, useEffect } from "react";
+import { getDeviceWidth } from "@/lib/deviceWidth";
 
 const DeviceWidthContext = createContext();
 
 export const DeviceWidthProvider = ({ children }) => {
-  const [deviceWidth, setDeviceWidth] = useState('2xl');
+  const [deviceWidth, setDeviceWidth] = useState("2xl");
 
   useEffect(() => {
     const handleResize = () => {
@@ -13,9 +13,9 @@ export const DeviceWidthProvider = ({ children }) => {
     };
 
     handleResize();
-    window.addEventListener('resize', handleResize);
-    
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
@@ -26,6 +26,6 @@ export const DeviceWidthProvider = ({ children }) => {
 };
 
 export const useDeviceWidthContext = () => {
-    const context = useContext(DeviceWidthContext);
-    return context;
-  };
+  const context = useContext(DeviceWidthContext);
+  return context;
+};

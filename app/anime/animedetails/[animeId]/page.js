@@ -19,19 +19,19 @@ const Page = async ({ params }) => {
   const anime = await fetchAnime(animeId);
 
   return (
-    <div className="w-screen overflow-x-hidden flex items-start justify-start flex-col padding">
+    <div className="w-screen overflow-x-hidden flex items-start justify-start flex-col padding -mt-10">
       <Details anime={anime} />
       <div className="w-full flex items-start justify-start h-auto gap-6 flex-col xl:flex-row">
         <div className="w-full mt-10 xl:w-[65%]">
           <Trailer vdolink={anime.trailer?.embed_url} />
           <Characters animeID={anime.mal_id} />
           <Staff animeID={anime.mal_id} />
+          <Recom animeId={anime.mal_id} />
         </div>
-        <div className="w-full xl:w-[25%]">
+        <div className="w-full mt-10 xl:w-[35%]">
           <TopAnime />
         </div>
       </div>
-      <Recom animeId={anime.mal_id} />
     </div>
   );
 };

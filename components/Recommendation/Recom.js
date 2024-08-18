@@ -2,37 +2,23 @@
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import useSWR from "swr";
+
+const fetcher = url => axios.get(url).then(res => res.data.data);
 
 const Recom = ({ animeId }) => {
-  const [recom, setRecom] = useState([]);
+  const { data, error } = useSWR(`https://api.jikan.moe/v4/anime/${animeId}/recommendations`, fetcher)
 
-  const getRecommendation = async (animeID) => {
-    try {
-      const res = await axios.get(
-        `https://api.jikan.moe/v4/anime/${animeID}/recommendations`
-      );
-      const data = res.data.data;
-      console.log(data[0].entry.mal_id);
-      setRecom(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // console.log(recom)
-  useEffect(() => {
-    // console.log(animeId);
-    getRecommendation(animeId);
-  }, []);
+  if(error) return "An Error"
+  if(!data) return "Loading..."
 
   return (
-    <div className="w-full md:w-[90%] lg:w-[80%] place-items-start pb-16 flex flex-col items-start justify-start">
+    <div className="w-full place-items-start pb-16 flex flex-col items-start justify-start mt-10">
       <h1 className="text-3xl font-bold mb-4 uppercase">Recommended</h1>
       <div className="grid grid-cols-2 md:grid-cols-5 lg:grid-cols-4 xl:grid-cols-5 w-full md:w-[95%] lg:w-[83%] xl:w-[84%] gap-y-4 gap-x-6">
-        {recom &&
-          recom.length > 0 &&
-          recom.slice(0, 8).map((recomm) => {
+        {data &&
+          data.length > 0 &&
+          data.slice(0, 8).map((recomm) => {
             return (
               <Link
               href={`${recomm.entry?.mal_id}`}

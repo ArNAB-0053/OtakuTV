@@ -5,7 +5,7 @@ const Trailer = ({ vdolink }) => {
   return (
     <div className="w-full flex items-start justify-start flex-col gap-x-8 mb-16">
       <h1 className="text-3xl font-bold mb-4 uppercase">Trailer</h1>
-      <span className="w-full h-auto aspect-video flex items-center justify-center select-none">
+      <span className="w-full h-auto bg-white aspect-video flex items-start justify-start select-none">
         {vdolink ? (
           <iframe
             src={`${vdolink}?autoplay=0`}
@@ -22,7 +22,7 @@ const Trailer = ({ vdolink }) => {
             src="/error.png"
             width={1200}
             height={1200}
-            className="w-full select-none"
+            className="w-full select-none aspect-video object-cover object-top"
             alt="This video is not available"
             draggable="false"
           />

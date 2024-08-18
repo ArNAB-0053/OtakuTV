@@ -23,6 +23,8 @@ module.exports = {
         ring: "hsl(var(--ring))",
         rank: "var(--rank)",
         bgitem: "var(--bgitem)",
+        bgtop: "var(--bgtop)",
+        rating: "var(--rating)",
         background: "hsl(var(--background))",
         foreground: "var(--foreground)",
         hoverPrimary: "var(--hoverPrimary)",
