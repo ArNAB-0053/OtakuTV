@@ -6,11 +6,13 @@ import { React, useState, useEffect } from "react";
 import { Button } from "../ui/button";
 import Fetchstaff from "./Fetchstaff";
 import SearchBar from "@/components/SearchBar";
+import { useDeviceWidthContext } from "@/context/page";
 
 const Staff = ({ animeID }) => {
   const [stafff, setStaff] = useState([]);
   const [isViewingAll, setIsViewingAll] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const deviceWidth = useDeviceWidthContext();
 
   const getStaff = async (animeID) => {
     try {
@@ -82,26 +84,39 @@ const Staff = ({ animeID }) => {
     return poss.length > 33 ? poss.slice(0, 33) + "..." : poss;
   };
 
+  // console.log(deviceWidth)
+  const [limit, setLimit] = useState(6);
+  useEffect(() => {
+    if (deviceWidth == "md") setLimit(9);
+    else if (deviceWidth == "lg") setLimit(9);
+    else if (deviceWidth == "sm") setLimit(6);
+    else if (deviceWidth == "xl") setLimit(8);
+    else setLimit(6);
+  }, [deviceWidth]);
+
+  // console.log(limit);
+
   return (
     <div className="flex items-start justify-start flex-col w-full mt-10">
       <h1 className="text-3xl font-bold mb-4 uppercase">Staff</h1>
-      <div className="grid grid-cols-2 md:grid-cols-3 place-items-start gap-x-16 gap-y-6">
-        {stafff?.length > 0 &&
-          stafff.slice(0, 6).map((staffff) => {
-            return (
-              <Fetchstaff
-                url={staffff.person?.url}
-                image_url={staffff?.person?.images?.jpg.image_url}
-                positions={getPos(staffff.positions)}
-                name={staffff.person?.name.replace(/,/g, "")}
-              />
-            );
-          })}
+      <div className="flex flex-col items-start justify-start gap-x-16 gap-y-6 w-full">
+        <div className="grid grid-cols-2 grid-rows-auto sm:max-lg:grid-cols-3 lg:max-xl:grid-cols-4 xl:grid-cols-3 place-items-start gap-x-4 w-full">
+          {stafff?.length > 0 &&
+            stafff.slice(0, limit).map((staffff) => {
+              return (
+                <Fetchstaff
+                  url={staffff.person?.url}
+                  image_url={staffff?.person?.images?.jpg.image_url}
+                  positions={getPos(staffff.positions)}
+                  name={staffff.person?.name.replace(/,/g, "")}
+                  width="w-full"
+                />
+              );
+            })}
+        </div>
 
         {stafff.length > 9 && (
-          <Button onClick={handleOpenStaff}>
-            View All
-          </Button>
+          <Button onClick={handleOpenStaff}>View All</Button>
         )}
 
         {isViewingAll && (
@@ -117,7 +132,7 @@ const Staff = ({ animeID }) => {
                   />
                 </span>
                 <Button
-                  className="bg-red-600 text-white hover:text-red-600 absolute right-0 md:relative" 
+                  className="bg-red-600 text-white hover:text-red-600 hover:bg-slate-200 absolute right-0 md:relative"
                   onClick={handleCloseStaff}
                 >
                   <ImCross />

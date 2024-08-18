@@ -2,12 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const Fetchstaff = ({ name, positions, image_url, url }) => {
+const Fetchstaff = ({ name, positions, image_url, url, width='' }) => {
   return (
     <Link
       key={url}
       href={url}
-      className="mr-2 mb-2 flex items-center gap-x-3 justify-start"
+      className={`${width} mb-2 flex items-center gap-x-3 justify-start`}
     >
       <Image
         src={image_url}

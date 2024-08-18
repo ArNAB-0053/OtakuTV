@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import Header from "@/components/Header";
+import { DeviceWidthProvider } from "@/context/page";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -19,8 +20,10 @@ export default function RootLayout({ children }) {
           enableSystem
           disableTransitionOnChange
         >
-          <Header/>
-          {children}
+          <DeviceWidthProvider>
+            <Header />
+            {children}
+          </DeviceWidthProvider>
         </ThemeProvider>
       </body>
     </html>

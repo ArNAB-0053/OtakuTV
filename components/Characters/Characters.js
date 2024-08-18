@@ -80,7 +80,7 @@ const Characters = ({ animeID }) => {
 
   return (
     <div className="flex items-start justify-start flex-col gap-y-2 place-self-start">
-      <span className="flex items-center justify-between w-full">
+      <span className="flex items-start justify-between flex-col md:flex-row w-full">
         <h1 className="text-3xl font-bold mb-4 uppercase">Characters</h1>
         <SelectOption
           handleSelectChange={handleSelectChange}
@@ -101,8 +101,8 @@ const Characters = ({ animeID }) => {
           <div className="w-[90%] h-[80%] md:w-[80%] md:h-[80%] lg:w-[60%] lg:h-[60%] bg-bgitem dark:bg-bgitem flex flex-col items-start justify-center lg:p-8 p-4 rounded-md">
             <div className="flex items-start justify-between w-full mb-4 flex-col xl:flex-row relative">
               <h3 className="text-3xl font-bold">Character</h3>
-              <div className="flex items-center justify-between xl:justify-evenly w-full mt-6 xl:mt-0">
-                <span className="w-[60%] border bg-transparent text-sm">
+              <div className="flex items-start gap-y-2 justify-between flex-col-reverse lg:flex-row xl:justify-evenly w-full mt-6 xl:mt-0">
+                <span className="w-full md:w-[60%] border bg-transparent text-sm">
                   <SearchBar
                     searchwhat="characters"
                     onSearchChange={handleSearchChange}
@@ -116,7 +116,7 @@ const Characters = ({ animeID }) => {
                 />
               </div>
               <Button
-                className="bg-red-600 text-white hover:text-red-600 absolute xl:relative right-0"
+                className="bg-red-600 text-white hover:text-red-600 hover:bg-slate-200 absolute xl:relative right-0"
                 onClick={handleClose}
               >
                 <ImCross />

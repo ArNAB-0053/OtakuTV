@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Image from "next/image";
 import React from "react";
 import Star_rating from "@/components/Star_rating";
@@ -39,55 +39,75 @@ const Details = ({ anime }) => {
     return duration.substring(0, 7);
   };
   return (
-    <div key={anime.mal_id} className=" flex items-center justify-center">
-      <div className="w-full h-auto grid grid-cols-1 grid-rows-1 md:grid-cols-[17rem_1fr] lg:grid-cols-[22rem_1fr] lg:grid-rows-2 place-items-center md:place-items-start">
-        <div className="w-[55%] md:mt-4 md:w-[13rem] lg:w-[19rem] h-auto lg:row-span-2 flex items-center justify-center">
-          {anime.images &&
-            anime.images.jpg &&
-            anime.images.jpg.large_image_url && (
-              <Image
-                src={anime.images?.jpg?.large_image_url}
-                width={200}
-                height={200}
-                className="w-full rounded-[0.6rem]"
-                alt={anime.title_english || anime.title}
-              />
-            )}
+    <div
+      key={anime.mal_id}
+      className="relative flex items-center justify-center flex-col"
+    >
+      <div className="absolute top-0">
+        <div className="relative w-screen h-[20rem] md:h-[16rem]">
+          {anime.images?.jpg?.large_image_url && (
+            <Image
+              src={anime.images?.jpg?.large_image_url}
+              width={2400}
+              height={2400}
+              className="absolute inset-0 w-full h-full object-cover"
+              alt={anime.title_english || anime.title}
+            />
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent z-10"></div>
         </div>
-        <div className="text-sm h-fit flex items-center md:items-start justify-start flex-col gap-y-4">
-          <span className="mt-4 md:mt-0 text-start flex items-center justify-center text-xl md:text-2xl lg:text-5xl gap-x-2 ">
-            <h1 className="font-bold flex text-center text-muted-foreground uppercase">
-              {anime.title_english || anime.title}
-            </h1>
-          </span>
-
-          <div className="flex items-center justify-center space-x-3 text-destructive">
-            <span className="bg-[#ff0000] px-3 rounded-[2px] py-[5px] text-white font-semibold">
-              {anime.type}
-            </span>
-            <span className="border-bgitem border-solid border px-3 rounded-[2px] py-[5px]">
-              {ratingDescriptions[anime.rating] || "Unknown"}
-            </span>
-            <span className="bg-bgitem px-3 rounded-[2px] py-[5px]">
-              {durationDetails()}
-            </span>
-            <p className="bg-bgitem px-3 py-[5px]">
-              {(anime.demographics && anime.demographics[0]?.name) || "N/A"}
-            </p>
-          </div>
-
-          <div className="w-full md:w-[17rem] h-24 border-gray-500 border flex items-center justify-center flex-col gap-y-2 rounded-[2px] py-[2px]">
-            <Star_rating stars={anime.score / 2} />
-            <span className="h-[1px] w-full bg-muted"></span>
-            <span className="flex text-muted items-center justify-center gap-2 text-md">
-              <FaStar color="red" />
-              <span className="tracking-wide flex items-start gap-1 font-stretch-200">
-                <strong>{anime.score}/10</strong> <p className="text-[#6D6D6D]">({anime.scored_by} votes)</p>
+      </div>
+      <div className="w-full mt-[10rem] md:mt-[17rem] xl:mt-[18.3rem] z-10 h-auto grid grid-cols-1 grid-rows-1 md:grid-cols-[17rem_1fr] lg:grid-cols-[22rem_1fr] lg:grid-rows-2 place-items-center md:place-items-start">
+        <div className="w-[55%] md:mt-[-6rem] md:w-[13rem] lg:w-[19rem] h-auto lg:row-span-2 flex items-center justify-center">
+          {anime.images?.jpg?.large_image_url && (
+            <Image
+              src={anime.images?.jpg?.large_image_url}
+              width={200}
+              height={200}
+              className="w-full rounded-[0.6rem]"
+              alt={anime.title_english || anime.title}
+            />
+          )}
+        </div>
+        <div className="text-sm h-fit flex items-start justify-start flex-col gap-y-4">
+          <div className="w-full flex items-start justify-start h-auto flex-col gap-y-5 xl:flex-row">
+            <div className="w-full flex items-center md:items-start justify-start flex-col gap-y-4 h-fit">
+              <span className="mt-4 md:mt-0 text-start flex items-center justify-center text-xl md:text-2xl lg:text-5xl gap-x-2 ">
+                <h1 className="font-bold flex text-center text-muted-foreground uppercase">
+                  {anime.title_english || anime.title}
+                </h1>
               </span>
-            </span>
+
+              <div className="flex items-center justify-center space-x-3 text-destructive">
+                <span className="bg-[#ff0000] px-3 rounded-[2px] py-[5px] text-white font-semibold">
+                  {anime.type}
+                </span>
+                <span className="border-bgitem border-solid border px-3 rounded-[2px] py-[5px]">
+                  {ratingDescriptions[anime.rating] || "Unknown"}
+                </span>
+                <span className="bg-bgitem px-3 rounded-[2px] py-[5px]">
+                  {durationDetails()}
+                </span>
+                <p className="bg-bgitem px-3 py-[5px]">
+                  {(anime.demographics && anime.demographics[0]?.name) || "N/A"}
+                </p>
+              </div>
+            </div>
+
+            <div className="w-full md:w-[17rem] h-24 border-gray-500 border flex items-center justify-center flex-col gap-y-2 rounded-[2px] py-[2px]">
+              <Star_rating stars={anime.score / 2} />
+              <span className="h-[1px] w-full bg-muted"></span>
+              <span className="flex text-muted items-center justify-center gap-2 text-md">
+                <FaStar color="red" />
+                <span className="tracking-wide flex items-start gap-1 font-stretch-200">
+                  <strong>{anime.score}/10</strong>{" "}
+                  <p className="text-[#6D6D6D]">({anime.scored_by} votes)</p>
+                </span>
+              </span>
+            </div>
           </div>
 
-          <span className={`${showMore ? "mb-4" : "mb-4"} text-destructive`}>
+          <span className={`${showMore ? "mb-2" : ""} text-destructive h-auto`}>
             {showMore
               ? anime.synopsis
               : anime.synopsis?.substring(0, 250) + "..."}
@@ -101,7 +121,7 @@ const Details = ({ anime }) => {
             </button>
           </span>
         </div>
-        <div className="w-full flex items-start justify-between flex-col">
+        <div className={`w-full flex items-start justify-between flex-col ${showMore ? "mb-2" : "xl:mt-[-3rem]"}`}>
           <Animedetail
             type={anime.type}
             season={
@@ -126,7 +146,7 @@ const Details = ({ anime }) => {
                   ? anime.themes.map((theme, index) => (
                       <span
                         key={index}
-                        className="bg-bgitem min-w-24 flex items-center justify-center px-2 py-1 rounded"
+                        className="min-w-24 flex items-center justify-center px-2 py-1 rounded border border-bgitem"
                       >
                         {theme.name}
                       </span>
@@ -140,7 +160,7 @@ const Details = ({ anime }) => {
                   ? anime.genres.map((genre, index) => (
                       <span
                         key={index}
-                        className="border border-gray-300 px-2 py-1 rounded-md"
+                        className="bg-bgitem px-2 py-1 rounded-md"
                       >
                         {genre.name}
                       </span>
@@ -154,7 +174,7 @@ const Details = ({ anime }) => {
                   ? anime.producers.map((producer, index) => (
                       <span
                         key={index}
-                        className="border-l border-black dark:border-white border-r px-3"
+                        className="border border-muted rounded py-1 px-3"
                       >
                         {producer.name}
                       </span>
