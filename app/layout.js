@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
         >
           <DeviceWidthProvider>
             <Header />
-            {children}
+            <main className="mt-16">{children}</main>
           </DeviceWidthProvider>
         </ThemeProvider>
       </body>

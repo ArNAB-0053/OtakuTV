@@ -19,7 +19,7 @@ const Page = async ({ params }) => {
   const anime = await fetchAnime(animeId);
 
   return (
-    <div className="w-screen overflow-x-hidden flex items-start justify-start flex-col padding -mt-10">
+    <div className="w-screen overflow-x-hidden flex items-start justify-start flex-col padding -mt-16">
       <Details anime={anime} />
       <div className="w-full flex items-start justify-start h-auto gap-6 flex-col xl:flex-row">
         <div className="w-full mt-10 xl:w-[65%]">
