@@ -1,7 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Pathway+Extreme:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Pathway+Extreme:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -48,6 +47,7 @@
     --rank: #8800cc;
     --bgitem: #e4e4e4;
     --bgtop: #d2d1d271;
+    --scrollbarColor: #929292;
   }
 
   .dark {
@@ -77,6 +77,7 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
     --bgitem: #272e41;
+    --scrollbarColor: #3f4965;
     --bgtop: #21263557;
     --rating: #877c05;
   }
@@ -108,9 +109,9 @@
   .padding {
     @apply p-6 md:px-12 md:py-8 lg:px-10 xl:px-28 lg:py-10;
   }
-  
+
   li {
-    @apply hover:text-red-500 font-semibold
+    @apply hover:text-red-500 font-semibold;
   }
 }
 
@@ -131,11 +132,10 @@
 }
 
 .glass {
-  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-backdrop-filter: blur( 18.5px );
--webkit-backdrop-filter: blur( 18.5px );
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(18.5px);
+  -webkit-backdrop-filter: blur(18.5px);
 }
-
 
 * {
   font-family: "Montserrat", "Pathway Extreme", "Raleway", sans-serif;
@@ -144,4 +144,37 @@ backdrop-filter: blur( 18.5px );
 input::placeholder {
   color: var(--background);
   opacity: 1; /* Firefox */
+}
+
+.animeSearch input::placeholder {
+  color: #000000;
+  opacity: 1;
+}
+
+.swiper {
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 100%;
+  height: 10%;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+}
+
+.swiper-pagination-bullet {
+  background-color: #ff8484 !important;
+  opacity: 0 !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #ff0000 !important;
+  opacity: 0 !important;
 }

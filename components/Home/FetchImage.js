@@ -13,8 +13,10 @@ export function useFetchAnime() {
   return {
     animeData:
       data?.data?.map((anime) => ({
-        url: anime.images.jpg.image_url,
-        title: anime.title,
+        mal_id: anime.mal_id,
+        url: anime?.images?.jpg?.large_image_url || anime?.images?.jpg?.image_url,
+        type: anime?.type,
+        title: anime.title_english || anime.title,
         synopsis:
           anime.synopsis?.length > 250
             ? anime.synopsis.substring(0, 250) + "..."

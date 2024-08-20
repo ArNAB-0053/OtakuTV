@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import SearchBar from "./SearchBar";
 
-const AnimeSearch = () => {
+const AnimeSearch = ({className, iconColor}) => {
   const router = useRouter();
   const [search, setSearch] = useState(""); // State to hold the search term
 
@@ -19,11 +19,13 @@ const AnimeSearch = () => {
   };
 
   return (
-    <form onSubmit={handleSearchSubmit}>
+    <form onSubmit={handleSearchSubmit} className="w-full">
       <SearchBar
         searchTerm={search}
         onSearchChange={handleSearchChange}
         searchwhat="anime"
+        className={className}
+        iconColor={iconColor}
       />
     </form>
   );

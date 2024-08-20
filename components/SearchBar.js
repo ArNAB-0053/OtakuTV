@@ -1,9 +1,15 @@
 import { FaSearch } from "react-icons/fa";
 
-const SearchBar = ({ searchTerm, onSearchChange, searchwhat }) => {
+const SearchBar = ({
+  searchTerm,
+  onSearchChange,
+  searchwhat,
+  className = "flex w-full items-center justify-start bg-black/10 px-4 py-2 border border-solid border-[#47567c]",
+  iconColor,
+}) => {
   return (
-    <span className="flex items-center justify-start bg-black/10 px-4 py-2 border border-solid border-[#47567c]">
-      <FaSearch />
+    <span className={className}>
+      <FaSearch color={iconColor} />
       <input
         type="text"
         value={searchTerm}
