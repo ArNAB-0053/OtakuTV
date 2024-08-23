@@ -2,10 +2,12 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Image from "next/image";
-import { Duration, rated } from "../SimpleComponents";
+import { Duration, rated } from "@/components/SimpleComponents";
 import Link from "next/link";
 import useSWR from 'swr'
-import SemiDetails from '@/components/SemiDetails'
+import SemiDetails from "./SemiDetails";
+import SkeletonLoader from "./loading";
+import { list } from "postcss";
 
 // eslint-disable-next-line @next/next/no-async-client-component
 
@@ -15,14 +17,14 @@ const TopAnime = () => {
   // const [data, setdata] = useState([]);
   const rating = rated;
 
-  const { data, error } = useSWR("https://api.jikan.moe/v4/top/anime?page=1&limit=15", fetcher)
+  const limit = 10;
+  const { data, error } = useSWR(`https://api.jikan.moe/v4/top/anime?page=1&limit=${limit}`, fetcher)
 
-  if(error) return "An Error"
-  if(!data) return "Loading..."
+  if(error) return <SkeletonLoader limit={limit}/>
+  if(!data) return <SkeletonLoader limit={limit}/>
 
   return (
-    <div className="flex flex-col max-xl:hidden">
-      <h1 className="text-3xl font-bold mb-4 uppercase">Top Anime</h1>
+    <div className="flex flex-col w-full">
       <div className="flex flex-col">
         {data?.map((anime, index) => {
           return index == 0 ? (

@@ -3,21 +3,22 @@ import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import useSWR from "swr";
+import SkeletonLoader from "./loading";
 
 const fetcher = url => axios.get(url).then(res => res.data.data);
 
 const Recom = ({ animeId }) => {
   const { data, error } = useSWR(`https://api.jikan.moe/v4/anime/${animeId}/recommendations`, fetcher)
 
-  if(error) return "An Error"
-  if(!data) return "Loading..."
+  if(error) return <SkeletonLoader limit={14} />
+  if(!data) return <SkeletonLoader limit={14} />
 
   return (
     <div className="w-full place-items-start pb-16 flex flex-col items-start justify-start mt-10">
-      <div className="grid grid-cols-2 md:grid-cols-5 lg:grid-cols-4 xl:grid-cols-5 w-full md:w-[95%] lg:w-[83%] xl:w-[84%] gap-y-4 gap-x-6">
+      <div className="grid max-sm:grid-cols-2 sm:grid-cols-[repeat(auto-fit,minmax(6rem,1fr))] gap-6 w-full h-full">
         {data &&
           data.length > 0 &&
-          data.slice(0, 8).map((recomm) => {
+          data.slice(0, 14).map((recomm) => {
             return (
               <Link
               href={`${recomm.entry?.mal_id}`}

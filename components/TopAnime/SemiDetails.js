@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { Duration, rated } from "./SimpleComponents";
-import Details from "./MinimalDetails/Details";
+import { Duration, rated } from "@/components/SimpleComponents";
 import Image from "next/image";
 
 const SemiDetails = ({anime, rank}) => {
