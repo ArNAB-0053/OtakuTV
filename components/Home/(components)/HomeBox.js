@@ -13,9 +13,8 @@ import { useFetchAnime } from "./FetchImage";
 import Image from "next/image";
 import { useDeviceWidthContext } from "@/context/page";
 import { useState, useEffect } from "react";
-import AnimeSearch from "../AnimeSearch";
+import AnimeSearch from "@/components/Search/AnimeSearch";
 import Link from "next/link";
-import { Duration, rated } from "../SimpleComponents";
 
 const HomeBox = () => {
   const { animeData, isLoading, isError } = useFetchAnime();
@@ -29,11 +28,11 @@ const HomeBox = () => {
     else setLimit(4);
   }, [deviceWidth]);
 
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Failed to load data</div>;
+  // if (isError) return <div>Error: {error.message}</div>;
+  // if (isLoading) return <SkeletonLoader limit={limit} />;
 
   return (
-    <div className="padding w-screen relative">
+    <div className="padding w-screen relative ">
       <Swiper
         effect={"coverflow"}
         grabCursor={true}
@@ -42,7 +41,7 @@ const HomeBox = () => {
         loop={true}
         navigation={false}
         pagination={true}
-        spaceBetween={20}
+        spaceBetween={10}
         // modules={[Autoplay, Pagination, Navigation]}
         modules={[Autoplay, EffectCoverflow, Pagination, Navigation]}
         coverflowEffect={{
@@ -69,7 +68,7 @@ const HomeBox = () => {
                   src={anime.url}
                   width={2400}
                   height={2400}
-                  className="h-[32rem] aspect-[3/4] object-cover"
+                  className="h-[24rem] xl:h-[32rem] aspect-[3/4] object-cover"
                   alt={anime.title_english || anime.title}
                 />
               </div>

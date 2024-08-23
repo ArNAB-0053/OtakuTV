@@ -3,6 +3,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import Header from "@/components/Header";
 import { DeviceWidthProvider } from "@/context/page";
+import NextTopLoader from "nextjs-toploader";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -12,8 +13,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="overflow-x-hidden dark scroll-smooth scrollbar-thin scrollbar-thumb-scrollbarColor !scrollbar-track-transparent scrollbar-rounded-full">
+    <html
+      lang="en"
+      className="overflow-x-hidden dark scroll-smooth scrollbar-thin scrollbar-thumb-scrollbarColor !scrollbar-track-transparent scrollbar-rounded-full"
+    >
       <body className={`${inter.className} dark overflow-x-hidden`}>
+        <NextTopLoader />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

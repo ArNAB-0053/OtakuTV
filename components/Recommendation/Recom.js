@@ -14,7 +14,6 @@ const Recom = ({ animeId }) => {
 
   return (
     <div className="w-full place-items-start pb-16 flex flex-col items-start justify-start mt-10">
-      <h1 className="text-3xl font-bold mb-4 uppercase">Recommended</h1>
       <div className="grid grid-cols-2 md:grid-cols-5 lg:grid-cols-4 xl:grid-cols-5 w-full md:w-[95%] lg:w-[83%] xl:w-[84%] gap-y-4 gap-x-6">
         {data &&
           data.length > 0 &&

@@ -1,5 +1,5 @@
-import PaginationTemplate from "@/components/PaginationTemplate";
-import HomeBox from "./HomeBox";
+import PaginationTemplate from "@/components/PaginationCom/PaginationTemplate";
+import HomeBox from "./(components)/HomeBox";
 
 const Home = () => {
   return (

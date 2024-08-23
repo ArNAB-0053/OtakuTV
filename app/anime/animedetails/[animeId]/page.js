@@ -24,8 +24,11 @@ const Page = async ({ params }) => {
       <div className="w-full flex items-start justify-start h-auto gap-6 flex-col xl:flex-row">
         <div className="w-full mt-10 xl:w-[65%]">
           <Trailer vdolink={anime.trailer?.embed_url} />
+          <h1 className="text-3xl font-bold my-4 uppercase">Characters</h1>
           <Characters animeID={anime.mal_id} />
+          <h1 className="text-3xl font-bold my-4 uppercase">Staff</h1>
           <Staff animeID={anime.mal_id} />
+          <h1 className="text-3xl font-bold my-4 uppercase">Recommended</h1>
           <Recom animeId={anime.mal_id} />
         </div>
         <div className="w-full mt-10 xl:w-[35%]">

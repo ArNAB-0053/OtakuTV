@@ -1,7 +1,7 @@
 import React from "react";
 import { ModeToggle } from "./ModeToggle";
 import Link from "next/link";
-import AnimeSearch from "./AnimeSearch";
+import AnimeSearch from "@/components/Search/AnimeSearch";
 import HeaderRes from "./Header/HeaderRes";
 
 const Header = () => {

@@ -1,14 +1,16 @@
 "use client"
 import { useState, useEffect } from "react";
 import axios from "axios";
-import SelectLanguage from "./SelectLanguage";
+import SelectLanguage from "./(components)/SelectLanguage";
 import { Button } from "../ui/button";
 import { ImCross } from "react-icons/im";
-import SearchBar from "../SearchBar";
-import SelectOption from "./SelectOption";
+import SearchBar from "../Search/SearchBar";
+import SelectOption from "./(components)/SelectOption";
 import useSWR from "swr";
+import SkeletonLoader from "./(components)/loading";
+import Error from "./(components)/error";
 
-const fetcher = url => axios.get(url).then(res => res.data.data);
+const fetcher = (url) => axios.get(url).then((res) => res.data.data);
 
 const Characters = ({ animeID }) => {
   const [uniqueLanguages, setUniqueLanguages] = useState(new Set());
@@ -68,13 +70,12 @@ const Characters = ({ animeID }) => {
   });
 
 
-  if(error) return "An Error"
-  if(!data) return "Loading..."
+  if(error) return <SkeletonLoader limit={3} />
+  if(!data) return <SkeletonLoader limit={3} />
 
   return (
     <div className="flex items-start justify-start flex-col gap-y-2 place-self-start">
       <span className="flex items-start justify-between flex-col md:flex-row w-full">
-        <h1 className="text-3xl font-bold mb-4 uppercase">Characters</h1>
         <SelectOption
           handleSelectChange={handleSelectChange}
           selectedLanguage={selectedLanguage}

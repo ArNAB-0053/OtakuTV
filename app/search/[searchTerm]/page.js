@@ -1,7 +1,7 @@
 // app/search/[searchTerm]/page.js
 "use client";
 import { useParams } from "next/navigation";
-import PaginationTemplate from "@/components/PaginationTemplate";
+import PaginationTemplate from "@/components/PaginationCom/PaginationTemplate";
 
 const SearchResultsPage = () => {
   const { searchTerm } = useParams();

@@ -14,6 +14,7 @@ import {
 import Link from "next/link";
 import useSWR from "swr";
 import { useDeviceWidthContext } from "@/context/page";
+import SkeletonLoader from "./loading";
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 
@@ -29,26 +30,29 @@ const PaginationTemplate = ({
   const [limit, setLimit] = useState(6);
   const deviceWidth = useDeviceWidthContext();
   useEffect(() => {
-    if (deviceWidth == "md") setLimit(14);
+    if (deviceWidth == "md") setLimit(16);
     else if (deviceWidth == "lg") setLimit(20);
     else if (deviceWidth == "sm") setLimit(10);
     else if (deviceWidth == "xl") setLimit(20);
-    else setLimit(24);
+    else setLimit(21);
   }, [deviceWidth]);
 
   // console.log(deviceWidth)
 
-  const { data, error } = useSWR(`${url}page=${page}&limit=${limit}`, fetcher);
+  const { data, error, isLoading } = useSWR(
+    `${url}page=${page}&limit=${limit}`,
+    fetcher
+  );
 
-  if (error) return <div>Error: {error.message}</div>;
-  if (!data) return <div>Loading...</div>;
+  if (error) return <SkeletonLoader limit={limit} />;
+  if (isLoading) return <SkeletonLoader limit={limit} />;
 
   const { data: animeList, pagination } = data;
   const totalPages = pagination?.last_visible_page || 1;
 
   return (
     <div className="flex items-center justify-center flex-col padding w-screen">
-      <div className="grid grid-cols-2 md:grid-cols-[repeat(auto-fit,minmax(12rem,1fr))] gap-6 w-full h-full">
+      <div className="grid max-sm:grid-cols-2 sm:grid-cols-[repeat(auto-fit,minmax(9rem,1fr))] gap-6 w-full h-full">
         {animeList?.map((anime) => (
           <Link
             href={`${animeLink}/${anime.mal_id}`}

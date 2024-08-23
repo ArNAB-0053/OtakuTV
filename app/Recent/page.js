@@ -1,4 +1,4 @@
-import PaginationTemplate from "@/components/PaginationTemplate";
+import PaginationTemplate from "@/components/PaginationCom/PaginationTemplate";
 
 const page = () => {
   return (

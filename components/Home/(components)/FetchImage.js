@@ -1,6 +1,6 @@
 "use client";
 import useSWR from "swr";
-import { Duration, rated } from "../SimpleComponents";
+import { Duration, rated } from "@/components/SimpleComponents";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
