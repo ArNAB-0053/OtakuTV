@@ -4,6 +4,7 @@ import Characters from "@/components/Characters/Characters";
 import Recom from "@/components/Recommendation/Recom";
 import Details from "@/components/MinimalDetails/Details";
 import TopAnime from "@/components/TopAnime/TopAnime";
+import Loading from "./loading";
 
 export async function fetchAnime(animeId) {
   const response = await fetch(`https://api.jikan.moe/v4/anime/${animeId}`);
@@ -18,20 +19,25 @@ const Page = async ({ params }) => {
   const { animeId } = params;
   const anime = await fetchAnime(animeId);
 
+  // if (!anime) return <Loading />;
+
+
   return (
     <div className="w-screen overflow-x-hidden flex items-start justify-start flex-col padding -mt-16">
       <Details anime={anime} />
       <div className="w-full flex items-start justify-start h-auto gap-6 flex-col xl:flex-row">
         <div className="w-full mt-10 xl:w-[65%]">
           <Trailer vdolink={anime.trailer?.embed_url} />
-          <h1 className="text-3xl font-bold my-4 uppercase">Characters</h1>
+          <h1 className="text-3xl font-bold mb-2 mt-7 uppercase">Characters</h1>
           <Characters animeID={anime.mal_id} />
-          <h1 className="text-3xl font-bold my-4 uppercase">Staff</h1>
+          <h1 className="text-3xl font-bold mb-2 mt-7 uppercase">Staff</h1>
           <Staff animeID={anime.mal_id} />
-          <h1 className="text-3xl font-bold my-4 uppercase">Recommended</h1>
+          <h1 className="text-3xl font-bold mb-2 mt-7 uppercase">
+            Recommended
+          </h1>
           <Recom animeId={anime.mal_id} />
         </div>
-        <div className="w-full mt-10 xl:w-[35%]">
+        <div className="w-full mt-7 xl:mt-10 xl:w-[35%]">
           <h1 className="text-3xl font-bold mb-4 uppercase">Top Anime</h1>
           <TopAnime />
         </div>

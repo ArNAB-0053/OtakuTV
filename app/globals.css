@@ -113,6 +113,10 @@
   li {
     @apply hover:text-red-500 font-semibold;
   }
+
+  /* .searchstylespan p {
+    @apply ;
+  } */
 }
 
 .animedet {
@@ -144,11 +148,15 @@
 input::placeholder {
   color: var(--background);
   opacity: 1; /* Firefox */
+  outline: none;
+  border: none;
 }
 
 .animeSearch input::placeholder {
   color: #000000;
   opacity: 1;
+  outline: none;
+  border: none;
 }
 
 .swiper {

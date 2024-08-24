@@ -15,11 +15,18 @@ import { useDeviceWidthContext } from "@/context/page";
 import { useState, useEffect } from "react";
 import AnimeSearch from "@/components/Search/AnimeSearch";
 import Link from "next/link";
+import { useAnimeSearch } from "@/hooks/useAnimeSearch";
+import SearchSuggestions from "@/components/Search/SearchSuggestions";
 
 const HomeBox = () => {
   const { animeData, isLoading, isError } = useFetchAnime();
   const [limit, setLimit] = useState(6);
   const deviceWidth = useDeviceWidthContext();
+
+  // Use the search hook
+  const { search, suggestions, handleSearchChange, handleSuggestionClick } =
+    useAnimeSearch();
+
   useEffect(() => {
     if (deviceWidth == "md") setLimit(3);
     else if (deviceWidth == "lg") setLimit(3);
@@ -27,9 +34,6 @@ const HomeBox = () => {
     else if (deviceWidth == "xl") setLimit(4);
     else setLimit(4);
   }, [deviceWidth]);
-
-  // if (isError) return <div>Error: {error.message}</div>;
-  // if (isLoading) return <SkeletonLoader limit={limit} />;
 
   return (
     <div className="padding w-screen relative ">
@@ -42,7 +46,6 @@ const HomeBox = () => {
         navigation={false}
         pagination={true}
         spaceBetween={10}
-        // modules={[Autoplay, Pagination, Navigation]}
         modules={[Autoplay, EffectCoverflow, Pagination, Navigation]}
         coverflowEffect={{
           rotate: 0, // Angle change
@@ -75,11 +78,25 @@ const HomeBox = () => {
             </Link>
           </SwiperSlide>
         ))}
+        {/* AnimeSearch component with custom search functionality */}
         <AnimeSearch
-          className="flex w-full md:w-[70%] lg:w-3/5 xl:w-1/2 items-center justify-start absolute z-40 bottom-4 left-1/2 transform -translate-x-1/2 py-5 px-10 bg-white border-black border animeSearch text-black"
+          search={search}
+          onSearchChange={handleSearchChange}
+          className="flex w-full md:w-[42rem] items-center justify-start absolute z-40 bottom-4 left-1/2 transform -translate-x-1/2 py-5 px-10 bg-white border-black border animeSearch text-black"
           iconColor="#000000"
         />
       </Swiper>
+
+      {/* Render SearchSuggestions */}
+        {suggestions && search && (
+          <SearchSuggestions
+            suggestions={suggestions}
+            search={search}
+            onSuggestionClick={handleSuggestionClick}
+            className="absolute top-[94%] left-1/2 transform -translate-x-1/2 border bg-bgitem rounded shadow-lg z-50 w-[90%] md:w-[42rem] overflow-hidden "
+            handleFormSubmit={handleSearchChange}
+          />
+        )}
     </div>
   );
 };
