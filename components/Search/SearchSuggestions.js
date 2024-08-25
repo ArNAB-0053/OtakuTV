@@ -12,11 +12,9 @@ const SearchSuggestions = ({
   widthpara = "max-sm:w-[67vw] w-[20rem] md:w-[35rem]",
   className = "absolute left-0 top-20 w-full bg-black border border-gray-300 rounded shadow-lg z-50",
 }) => {
-  if (!suggestions || !search) return null;
-
   const router = useRouter();
   const suggestionsRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(true);  
 
   // Handle click outside the suggestions to close it
   useEffect(() => {
@@ -34,6 +32,8 @@ const SearchSuggestions = ({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  if (!suggestions || !search) return null;
 
   const handleViewAllClick = () => {
     if (search.trim()) {
