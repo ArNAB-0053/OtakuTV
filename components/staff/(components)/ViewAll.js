@@ -17,6 +17,7 @@ const ViewAll = ({ isViewingAll, searchTerm, handleCloseStaff, handleSearchChang
                   searchTerm={searchTerm}
                   onSearchChange={handleSearchChange}
                   searchwhat="staff"
+                  className="flex w-full items-center justify-start  px-4 py-2 border-solid border border-white/30 bg-transparent"
                 />
               </span>
               <Button
@@ -26,7 +27,7 @@ const ViewAll = ({ isViewingAll, searchTerm, handleCloseStaff, handleSearchChang
                 <ImCross />
               </Button>
             </div>
-            <span className="flex flex-wrap items-start justify-start gap-x-16 gap-y-6 w-full h-full overflow-auto">
+            <span className="flex flex-wrap items-start justify-start gap-x-16 gap-y-6 w-full h-full overflow-auto overflow-x-hidden scrollbar-thin">
               {filteredStaff?.length > 0 ? (
                 filteredStaff.map((staffff) => {
                   return (

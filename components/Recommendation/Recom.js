@@ -18,6 +18,7 @@ const Recom = ({ animeId }) => {
 
   return (
     <div className="w-full place-items-start pb-16 flex flex-col items-start justify-start">
+      {!data || data.length === 0 && (<div className="w-full bg text-xs text-destructive inline-block">No Recommendation Found!! 😔</div>)}
       <div className="grid max-sm:grid-cols-2 sm:grid-cols-[repeat(auto-fit,minmax(6rem,1fr))] gap-6 w-full h-full ">
         {data && data.length > 3
           ? data.slice(0, 10).map((recomm) => {
