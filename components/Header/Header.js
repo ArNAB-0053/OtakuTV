@@ -6,6 +6,8 @@ import HeaderRes from "./HeaderRes";
 import SearchSuggestions from "../Search/SearchSuggestions";
 import { CgProfile } from "react-icons/cg";
 import { usePathname } from "next/navigation";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import { Button } from "../ui/button";
 
 const Header = () => {
   const pathname = usePathname();
@@ -17,17 +19,19 @@ const Header = () => {
       <header className="max-xl:hidden bg-white/50 dark:bg-gray-900/50 py-4 absolute w-screen padding overflow-x-hidden">
         <nav className="flex items-start xl:items-center justify-between gap-x-10 gap-y-4 max-xl:flex-col">
           <div className="w-[42rem] flex items-center justify-start">
-            <Link href="/" className="w-[15rem] font-bold text-xl ">OTAKUTV</Link>
+            <Link href="/" className="w-[15rem] font-bold text-xl ">
+              OTAKUTV
+            </Link>
             {!isHomePage && (
-            <span className="w-[25rem] bg-black/20 border border-[#47567c5c]">
-              <AnimeSearch
-                search={search}
-                onSearchChange={handleSearchChange}
-              />
-            </span>
-          )}
+              <span className="w-[25rem] bg-black/20 border border-[#47567c5c]">
+                <AnimeSearch
+                  search={search}
+                  onSearchChange={handleSearchChange}
+                />
+              </span>
+            )}
           </div>
-          
+
           <ul className="max-xl:hidden flex w-auto items-center justify-evenly gap-x-7 uppercase font-medium">
             <li>
               <Link href="/Popular"> Most Popular </Link>
@@ -42,7 +46,12 @@ const Header = () => {
               <Link href="/Recent"> Added </Link>
             </li>
             <li>
-              <CgProfile size={26} />
+              <SignedOut> 
+                <SignInButton className="uppercase bg-bgitem px-4 py-2 rounded-sm text-sm" />
+              </SignedOut>
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
             </li>
           </ul>
         </nav>

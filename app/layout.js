@@ -4,6 +4,8 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { DeviceWidthProvider } from "@/context/page";
 import NextTopLoader from "nextjs-toploader";
 import Header from "@/components/Header/Header";
+import { ClerkProvider } from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -13,24 +15,46 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html
-      lang="en"
-      className="overflow-x-hidden dark scroll-smooth scrollbar-thin scrollbar-thumb-scrollbarColor !scrollbar-track-transparent scrollbar-rounded-full"
+    <ClerkProvider
+      appearance={{
+        baseTheme: dark,
+        variables: {
+          colorPrimary: "red",
+          colorBackground: "#303950",
+          colorInputBackground: "#272e41",
+          colorInputText: "#fefefe",
+        },
+        layout: {
+          logoImageUrl: "/logo.png",
+          unsafe_disableDevelopmentModeWarnings: true,
+        },
+        elements: {
+          formButtonPrimary: {
+            fontSize: 14,
+            textTransform: "none",
+          },
+        },
+      }}
     >
-      <body className={`${inter.className} dark overflow-x-hidden`}>
-        <NextTopLoader />
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <DeviceWidthProvider>
-            <Header />
-            <main className="mt-16">{children}</main>
-          </DeviceWidthProvider>
-        </ThemeProvider>
-      </body>
-    </html>
+      <html
+        lang="en"
+        className="overflow-x-hidden dark scroll-smooth scrollbar-thin scrollbar-thumb-scrollbarColor !scrollbar-track-transparent scrollbar-rounded-full"
+      >
+        <body className={`${inter.className} dark overflow-x-hidden`}>
+          <NextTopLoader />
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <DeviceWidthProvider>
+              <Header />
+              <main className="mt-16">{children}</main>
+            </DeviceWidthProvider>
+          </ThemeProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
