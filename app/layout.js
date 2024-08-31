@@ -35,6 +35,8 @@ export default function RootLayout({ children }) {
           },
         },
       }}
+
+      publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
     >
       <html
         lang="en"
