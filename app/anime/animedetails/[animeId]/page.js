@@ -5,6 +5,7 @@ import Recom from "@/components/Recommendation/Recom";
 import Details from "@/components/MinimalDetails/Details";
 import TopAnime from "@/components/TopAnime/TopAnime";
 import Loading from "./loading";
+import Comment from "@/components/Comment/Comment";
 
 export async function fetchAnime(animeId) {
   const response = await fetch(`https://api.jikan.moe/v4/anime/${animeId}`);
@@ -25,6 +26,7 @@ const Page = async ({ params }) => {
   return (
     <div className="w-screen overflow-x-hidden flex items-start justify-start flex-col padding -mt-16">
       <Details anime={anime} />
+      <Comment />
       <div className="w-full flex items-start justify-start h-auto gap-6 flex-col xl:flex-row">
         <div className="w-full mt-10 xl:w-[65%]">
           <Trailer vdolink={anime.trailer?.embed_url} />
