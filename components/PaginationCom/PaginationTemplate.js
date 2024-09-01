@@ -7,6 +7,7 @@ import SkeletonLoader from "./loading";
 import { usePathname } from "next/navigation";
 import HomeAnimes from "./(Home)/HomeAnimes";
 import Animes from "./(components)/Animes";
+import Error from "./error";
 
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
@@ -47,8 +48,21 @@ const PaginationTemplate = ({
     fetcher
   );
 
-  if (error) return <SkeletonLoader limit={limit} />;
+  const [showError, setShowError] = useState(false);
+
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        setShowError(true);
+      }, 5000); // 5-second delay
+
+      return () => clearTimeout(timer);
+    }
+  }, [error]);
+
   if (isLoading) return <SkeletonLoader limit={limit} />;
+  if (showError) return <Error />;
+  if (error && !showError) return <SkeletonLoader limit={limit} />;
 
   const { data: animeList, pagination } = data;
   const totalPages = pagination?.last_visible_page || 1;

@@ -75,8 +75,8 @@ const Details = ({ anime }) => {
               <span className="flex text-muted-foreground items-center justify-center gap-2 text-md">
                 <FaStar color="red" />
                 <span className="tracking-wide flex items-start gap-1 font-stretch-200">
-                  <strong>{anime.score}/10</strong>{" "}
-                  <p className="">({anime.scored_by} votes)</p>
+                  <strong>{anime.score ? `${anime.score}/10` : 'N/A'}</strong>{" "}
+                  <p className="">{anime.scored_by && `(${anime.scored_by} votes)`}</p>
                 </span>
               </span>
             </div>
