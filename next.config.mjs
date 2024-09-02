@@ -12,6 +12,11 @@ const nextConfig = {
             hostname: 'www.youtube.com',
             port: '',
           },
+          {
+            protocol: 'https',
+            hostname: 'img.clerk.com',
+            port: ''
+          }
         ],
       },
 };

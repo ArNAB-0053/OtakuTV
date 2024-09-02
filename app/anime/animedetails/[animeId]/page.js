@@ -24,9 +24,9 @@ const Page = async ({ params }) => {
 
 
   return (
-    <div className="w-screen overflow-x-hidden flex items-start justify-start flex-col padding -mt-16">
+    <div className="w-screen overflow-x-hidden flex items-start justify-start flex-col padding -mt-16 relative">
       <Details anime={anime} />
-      <Comment />
+      <Comment animeId={animeId} />
       <div className="w-full flex items-start justify-start h-auto gap-6 flex-col xl:flex-row">
         <div className="w-full mt-10 xl:w-[65%]">
           <Trailer vdolink={anime.trailer?.embed_url} />

@@ -17,6 +17,54 @@
   => muted -> Anime details TableCell text 
 */
 
+.commentScrollbar::-webkit-scrollbar {
+  max-width: 100px !important; 
+  height: 6px; 
+}
+
+.commentScrollbar::-webkit-scrollbar-thumb {
+  background-color: #3D4765; 
+  border-radius: 10px; 
+}
+
+.commentScrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #3D476590; 
+}
+
+.commentScrollbar::-webkit-scrollbar-track {
+  background-color: transparent; 
+}
+
+/* scrollbar-thin scroll-smooth scrollbar-track-transparent */
+
+.mySwiperComment {
+  width: 100% !important;
+}
+
+.mySwiperComment .swiper-scrollbar {
+  background-color: #333;
+  height: 8px !!important;
+  border-radius: 10px;
+  max-width: 200px;
+  bottom: 10px;
+  position: absolute; /* Add this */
+  left: 0; /* Reset left to 0 */
+  right: 0; /* Add this */
+  margin: 0 auto; /* Add this */
+  transform: none; /* Remove the translateX */
+  background-color: #343D56 !important;
+}
+
+.mySwiperComment .swiper-scrollbar-drag {
+  background-color: #666;
+  border-radius: 10px;
+  background-color: #55648D90 !important;
+}
+
+.swiperSlideComment {
+  width: 17rem !important;
+}
+
 @layer base {
   :root {
     --background: 0, 100%, 99%;
@@ -170,6 +218,7 @@ input::placeholder {
   padding-top: 50px;
   padding-bottom: 50px;
 }
+
 
 .swiper-slide {
   background-position: center;
@@ -693,3 +742,5 @@ input::placeholder {
 .banter-loader__box:nth-child(9) {
   animation: moveBox-9 4s infinite;
 }
+
+

@@ -20,9 +20,11 @@ const CommentsList = ({ animeId }) => {
 
   return (
     <Swiper
-      slidesPerView={'auto'}
+      slidesPerView={3.8}
+      slidesOffsetBefore={50}
+      slidesOffsetAfter={140}
       freeMode={true}
-      spaceBetween={30}
+      spaceBetween={120}
       pagination={{
         clickable: true,
       }}
@@ -32,8 +34,8 @@ const CommentsList = ({ animeId }) => {
       className="mySwiperComment"
     >
       {data.comments?.map((comment) => (
-        <SwiperSlide key={comment._id} className="flex-shrink-0 swiperSlideComment">
-          <div className="bg-gradient-to-b from-[#2f384e] via-[#272e41] to-transparent p-4 rounded w-full h-[13rem] flex-shrink-0 rounded-t-xl cursor-pointer flex items-start justify-start flex-col">
+        <SwiperSlide key={comment._id} className="flex-shrink-0">
+          <div className="bg-gradient-to-b from-[#2f384e] via-[#272e41] to-transparent p-4 rounded w-[17rem] h-[13rem] flex-shrink-0 rounded-t-xl cursor-pointer flex items-start justify-start flex-col">
             <div className="flex items-center justify-start gap-x-4">
               <span>
                 {comment.hasImage ? (
