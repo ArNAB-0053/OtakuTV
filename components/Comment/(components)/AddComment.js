@@ -3,10 +3,10 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
 import useSWR from "swr";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 
-const AddComment = ({ animeId }) => {
+const AddComment = ({ animeId, setAddCommentSpan }) => {
   const { isSignedIn, user } = useUser();
   const [comment, setComment] = useState("");
   const { data: comments, mutate } = useSWR(`/api/Comment?animeID=${animeId}`);
@@ -37,13 +37,16 @@ const AddComment = ({ animeId }) => {
           userName: user.firstName,
           animeID: animeId,
           hasImage: user.hasImage,
-          imageUrl: user.imageUrl || ''
+          imageUrl: user.imageUrl || '',
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
         }),
       });
 
       if (res.ok) {
         setComment("");
         mutate(); // This will trigger a re-fetch of the comments
+        setAddCommentSpan(false); // Close the modal after submitting
       } else {
         const errorData = await res.json();
         console.log("Failed to post comment:", errorData);
@@ -56,15 +59,16 @@ const AddComment = ({ animeId }) => {
   };
 
   return (
-    <div className="mt-10">
-      <form onSubmit={handleSubmit} className="flex items-start justify-between gap-x-3">
-        <Input
+    <div className="">
+      <form onSubmit={handleSubmit} className="flex items-center justify-center flex-col gap-3">
+        <Textarea
           onChange={(e) => setComment(e.target.value)}
           value={comment}
           type="text"
           placeholder="Add your comment"
+          className="h-[8rem] text-start placeholder:text-start"
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit" className="bg-[#ff0000] hover:bg-[#ff0000]/60">Submit</Button>
       </form>
     </div>
   );

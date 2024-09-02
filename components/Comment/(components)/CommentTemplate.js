@@ -1,39 +1,34 @@
 "use client";
 import Image from "next/image";
-import useSWR from "swr";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "swiper/css/scrollbar";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Navigation, Scrollbar, FreeMode } from "swiper/modules";
+import { Pagination, Scrollbar, FreeMode } from "swiper/modules";
+import CommentTime from "./commentTime";
+import { Button } from "../../ui/button";
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
-
-const CommentsList = ({ animeId }) => {
-  const { data, error } = useSWR(`/api/Comment?animeID=${animeId}`, fetcher, {
-    refreshInterval: 1000, // Poll every 1 second
-  });
-
-  if (error) return <div>Failed to load comments</div>;
-  if (!data) return <div>Loading...</div>;
-
+const CommentTemplate = ({ data }) => {
   return (
     <Swiper
-      slidesPerView={'auto'}
+      slidesPerView={"auto"}
       freeMode={true}
-      spaceBetween={30}
+      spaceBetween={20}
       pagination={{
         clickable: true,
       }}
       scrollbar={true}
       mousewheel={true}
       modules={[FreeMode, Pagination, Scrollbar]}
-      className="mySwiperComment"
+      className="mySwiperComment mb-2 select-none"
     >
-      {data.comments?.map((comment) => (
-        <SwiperSlide key={comment._id} className="flex-shrink-0 swiperSlideComment">
-          <div className="bg-gradient-to-b from-[#2f384e] via-[#272e41] to-transparent p-4 rounded w-full h-[13rem] flex-shrink-0 rounded-t-xl cursor-pointer flex items-start justify-start flex-col">
+      {data?.map((comment) => (
+        <SwiperSlide
+          key={comment._id}
+          className="flex-shrink-0 swiperSlideComment"
+        >
+          <div className="bg-gradient-to-b from-[#3b466170] via-[#3b456250] to-transparent commentTem p-4 rounded w-full h-[13rem] flex-shrink-0 rounded-t-xl cursor-pointer flex items-start justify-start flex-col">
             <div className="flex items-center justify-start gap-x-4">
               <span>
                 {comment.hasImage ? (
@@ -55,10 +50,12 @@ const CommentsList = ({ animeId }) => {
                 )}
               </span>
               <div className="flex items-start justify-center flex-col">
-                <h2 className="text-md text-white font-semibold uppercase">
+                <h2 className="text-md text-white/70 font-semibold uppercase">
                   {comment.userName}
                 </h2>
-                <p className="text-xs">- a minute ago</p>
+                <p className="text-xs flex items-center justify-start gap-x-1 italic text-white/50">
+                    - <CommentTime createdAt={comment.createdAt} />
+                </p>
               </div>
             </div>
             <p className="mt-4 text-wrap w-full truncate text-sm">
@@ -71,4 +68,4 @@ const CommentsList = ({ animeId }) => {
   );
 };
 
-export default CommentsList;
+export default CommentTemplate;

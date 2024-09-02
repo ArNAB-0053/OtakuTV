@@ -70,6 +70,16 @@ const Staff = ({ animeID }) => {
     );
   });
 
+  useEffect(() => {
+    if (isViewingAll) {
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden"; // Ensure html also has no scroll
+    } else {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = ""; // Reset html overflow
+    }
+  }, [isViewingAll]);
+
   const getPos = (pos) => {
     const poss = pos.join(", ");
     return poss.length > 33 ? poss.slice(0, 33) + "..." : poss;

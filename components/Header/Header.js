@@ -16,7 +16,7 @@ const Header = () => {
   const isHomePage = pathname === "/";
   return (
     <>
-      <header className="max-xl:hidden bg-white/50 dark:bg-gray-900/50 py-4 absolute w-screen padding overflow-x-hidden">
+      <header className="max-xl:hidden bg-white/50 dark:bg-gray-900/50 py-4 absolute w-screen padding overflow-x-hidden z-[99999]">
         <nav className="flex items-start xl:items-center justify-between gap-x-10 gap-y-4 max-xl:flex-col">
           <div className="w-[42rem] flex items-center justify-start">
             <Link href="/" className="w-[15rem] font-bold text-xl ">

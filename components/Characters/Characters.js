@@ -73,6 +73,16 @@ const Characters = ({ animeID }) => {
     return matchesSearch && matchesLanguage;
   });
 
+  useEffect(() => {
+    if (isViewingAll) {
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden"; // Ensure html also has no scroll
+    } else {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = ""; // Reset html overflow
+    }
+  }, [isViewingAll]);
+
   if (error) return <SkeletonLoader limit={3} />;
   if (!data) return <SkeletonLoader limit={3} />;
 
