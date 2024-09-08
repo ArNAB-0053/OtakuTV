@@ -43,7 +43,7 @@ export default function RootLayout({ children }) {
         className="overflow-x-hidden dark scroll-smooth scrollbar-thin scrollbar-thumb-scrollbarColor !scrollbar-track-transparent scrollbar-rounded-full"
       >
         <body className={`${inter.className} dark overflow-x-hidden`}>
-          <NextTopLoader />
+          <NextTopLoader className="z-[99999]" />
           <ThemeProvider
             attribute="class"
             defaultTheme="system"

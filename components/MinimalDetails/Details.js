@@ -6,11 +6,12 @@ import { FaStar } from "react-icons/fa";
 import Animedetail from "@/components/MinimalDetails/Animedetail";
 import { useState } from "react";
 import { Duration, rated } from "../SimpleComponents";
+import Fav from "./Favourite/AddFav";
 
 const Details = ({ anime }) => {
   const [showMore, setShowMore] = useState(false);
   const ratingDescriptions = rated;
-  const durationDetails = Duration(anime.duration)
+  const durationDetails = Duration(anime.duration);
   return (
     <div
       key={anime.mal_id}
@@ -20,30 +21,47 @@ const Details = ({ anime }) => {
         <div className="relative w-screen h-[40rem] md:h-[47rem]">
           {anime.images?.jpg?.large_image_url && (
             <Image
-              src={anime.images?.jpg?.large_image_url || anime.images?.jpg?.image_url}
+              src={
+                anime.images?.jpg?.large_image_url ||
+                anime.images?.jpg?.image_url
+              }
               width={2400}
               height={2400}
               className="absolute inset-0 w-full h-full -z-10 object-cover"
               alt={anime.title_english || anime.title}
             />
           )}
-           <div className="absolute bottom-0 left-0 w-full h-[50%] md:h-[80%] lg:h-[120%] bg-gradient-to-t from-background to-transparent"></div>
-           {/* <div className="absolute bottom-0 left-0 w-[100%] h-[70%] bg-gradient-to-t from-background to-transparent"></div> */}
-           <div className="viewallstaff bg-[#151923]/50 -z-10 absolute w-screen h-[150vh]"></div>
+          <div className="absolute bottom-0 left-0 w-full h-[50%] md:h-[80%] lg:h-[120%] bg-gradient-to-t from-background to-transparent"></div>
+          {/* <div className="absolute bottom-0 left-0 w-[100%] h-[70%] bg-gradient-to-t from-background to-transparent"></div> */}
+          <div className="viewallstaff bg-[#151923]/50 -z-10 absolute w-screen h-[150vh]"></div>
         </div>
       </div>
       <div className="w-full mt-[10rem] md:mt-[17rem] xl:mt-[18rem] h-auto grid grid-cols-1 grid-rows-1 md:grid-cols-[17rem_1fr] lg:grid-cols-[22rem_1fr] lg:grid-rows-1 place-items-center md:place-items-start">
-        <div className="w-[55%] md:mt-2 md:w-[13rem] lg:w-[19rem] h-auto lg:row-span-2 flex items-center justify-center">
-          {anime.images?.jpg?.large_image_url && (
-            <Image
-              src={anime.images?.jpg?.large_image_url}
-              width={200}
-              height={200}
-              className="w-full rounded-[0.6rem]"
-              alt={anime.title_english || anime.title}
-            />
-          )}
-        </div>
+        <span className="flex flex-col w-[55%] md:mt-2 md:w-[13rem] lg:w-[19rem] h-auto lg:row-span-2 relative">
+          <span className="w-full h-full flex items-center justify-center">
+            {anime.images?.jpg?.large_image_url && (
+              <Image
+                src={
+                  anime.images?.jpg?.large_image_url ||
+                  anime.images?.jpg?.image_url
+                }
+                width={200}
+                height={200}
+                className="w-full rounded-[0.6rem]"
+                alt={anime.title_english || anime.title}
+              />
+            )}
+          </span>
+          <Fav
+            animeID={anime.mal_id}
+            animeName={anime.title_english || anime.title}
+            imageUrl={
+              anime.images?.jpg?.large_image_url ||
+              anime.images?.jpg?.image_url ||
+              ""
+            }
+          />
+        </span>
         <div className="text-sm flex items-start justify-start flex-col gap-y-4 w-full">
           <div className="w-full flex items-start justify-start h-fit flex-col gap-y-5 xl:flex-row">
             <div className="w-full flex items-center md:items-start justify-start flex-col gap-y-4 h-fit">
@@ -75,16 +93,16 @@ const Details = ({ anime }) => {
               <span className="flex text-muted-foreground items-center justify-center gap-2 text-md">
                 <FaStar color="red" />
                 <span className="tracking-wide flex items-start gap-1 font-stretch-200">
-                  <strong>{anime.score ? `${anime.score}/10` : 'N/A'}</strong>{" "}
-                  <p className="">{anime.scored_by && `(${anime.scored_by} votes)`}</p>
+                  <strong>{anime.score ? `${anime.score}/10` : "N/A"}</strong>{" "}
+                  <p className="">
+                    {anime.scored_by && `(${anime.scored_by} votes)`}
+                  </p>
                 </span>
               </span>
             </div>
           </div>
 
-          <span
-            className="text-destructive-foreground h-fit"
-          >
+          <span className="text-destructive-foreground h-fit">
             {showMore
               ? anime.synopsis
               : anime.synopsis?.substring(0, 250) + "..."}
@@ -98,7 +116,9 @@ const Details = ({ anime }) => {
             </button>
           </span>
         </div>
-        <div className={`w-full flex h-full items-start justify-between flex-col `}>
+        <div
+          className={`w-full flex h-full items-start justify-between flex-col `}
+        >
           <Animedetail
             type={anime.type}
             season={

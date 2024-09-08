@@ -178,6 +178,11 @@
   -webkit-backdrop-filter: blur(18.5px);
 }
 
+.glassmorphiem-morethings {
+  backdrop-filter: blur(13px) saturate(167%);
+  -webkit-backdrop-filter: blur(13px) saturate(167%);
+}
+
 * {
   font-family: "Montserrat", "Pathway Extreme", "Raleway", sans-serif;
 }

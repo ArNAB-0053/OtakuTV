@@ -1,12 +1,29 @@
 import { Button } from "@/components/ui/button";
 import { useUser } from "@clerk/nextjs";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaHeartCircleCheck, FaHeartCirclePlus } from "react-icons/fa6";
+import useSWR, { mutate } from "swr";
+
+// Fetcher function for SWR
+const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const Fav = ({ animeID, imageUrl, animeName }) => {
   const { isSignedIn, user } = useUser();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [favoriteAdded, setFavoriteAdded] = useState(false);
+
+  // Use SWR to fetch favorite status
+  const { data: favoriteData, mutate: mutateFavorites } = useSWR(
+    isSignedIn ? `/api/Fav?userID=${user?.id}&animeID=${animeID}` : null,
+    fetcher
+  );
+
+  // Determine if the anime is already in favorites
+  useEffect(() => {
+    if (favoriteData) {
+      setFavoriteAdded(favoriteData.exists);
+    }
+  }, [favoriteData]);
 
   const handleAddToFavorites = async () => {
     if (!isSignedIn) {
@@ -26,7 +43,7 @@ const Fav = ({ animeID, imageUrl, animeName }) => {
     };
 
     try {
-      const response = await fetch(`/api/Fav?userID=${user.id}`, {
+      const response = await fetch(`/api/Fav`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -39,7 +56,7 @@ const Fav = ({ animeID, imageUrl, animeName }) => {
       if (response.ok) {
         setFavoriteAdded(true);
         alert("Favorite added successfully.");
-        console.log("Favorite added:", result);
+        mutateFavorites(); // Update SWR cache to reflect the new state
       } else {
         alert(`Error adding favorite: ${result.message}`);
         console.error("Error adding favorite:", result.message);
@@ -52,26 +69,28 @@ const Fav = ({ animeID, imageUrl, animeName }) => {
     }
   };
 
-  if (!isSignedIn) return <div>Not logged in</div>;
-
   return (
-    <Button
+    <button
       onClick={handleAddToFavorites}
-      className={`btn-add-fav glassmorphiem-morethings rounded-t-none absolute bottom-0 w-full flex items-center justify-center gap-x-3 font-semibold uppercase tracking-tighter ${favoriteAdded ? 'bg-green-500/70 hover:bg-green-500/80' : 'bg-[#ff0000]/70 hover:bg-[#ff0000]/60'} `}
+      className={`opacity-100 rounded-t-none rounded-b-md absolute bottom-0 w-full flex items-center justify-center gap-x-3 font-semibold uppercase tracking-tighter py-3 text-white ${
+        favoriteAdded ? 'bg-green-800 hover:bg-green-900' : 'bg-[#ff0000] hover:bg-red-600'
+      }`}
       disabled={isSubmitting || favoriteAdded}
     >
-      {favoriteAdded ? (
+      {!favoriteAdded ? (
+        <>
+          <FaHeartCirclePlus size={23} />
+          <p>
+            {isSubmitting ? "Adding..." : "Add to Favorites"}
+          </p>
+        </>
+      ) : (
         <>
           <FaHeartCircleCheck size={23} />
           <p>Added to Favorites</p>
         </>
-      ) : (
-        <>
-          <FaHeartCirclePlus size={23} />
-          <p>{isSubmitting ? "Adding..." : "Add to Favorites"}</p>
-        </>
       )}
-    </Button>
+    </button>
   );
 };
 

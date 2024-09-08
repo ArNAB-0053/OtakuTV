@@ -14,27 +14,32 @@ import { usePathname } from "next/navigation";
 import { IoIosSearch } from "react-icons/io";
 import { useState } from "react";
 import { Button } from "../ui/button";
-
-const menuItems = [
-  { href: "/Popular", label: "Most Popular" },
-  { href: "/Airing", label: "Airing" },
-  { href: "/Upcoming", label: "Upcoming" },
-  { href: "/Recent", label: "addad" },
-];
+import { useUser } from "@clerk/nextjs"; // Ensure you import useUser from Clerk
 
 const HeaderRes = () => {
+  const { user, isSignedIn } = useUser(); // Use isSignedIn to check if the user is signed in
   const pathname = usePathname();
   const [isClicked, setIsClicked] = useState(false);
   const { search, suggestions, handleSearchChange, handleSuggestionClick } =
     useAnimeSearch();
   const isHomePage = pathname === "/";
 
+  // Dynamically create menu items based on whether the user is signed in
+  const menuItems = [
+    { href: "/Popular", label: "Most Popular" },
+    { href: "/Airing", label: "Airing" },
+    { href: "/Upcoming", label: "Upcoming" },
+    { href: "/Recent", label: "Recent" },
+    { href: `/Favourite/${user?.id}`, label: "Favourite" }
+  ];
+
   const handleSearchClicked = () => {
     setIsClicked((prevState) => !prevState); // Toggle the state
   };
+
   return (
     <header className="xl:hidden flex items-center justify-center flex-col dark:bg-gray-900/50 z-10 ">
-      <nav className="w-full flex items-center justify-start flex-col absolute left-0 top-0 dark:bg-gray-900/50 z-30 ">
+      <nav className="w-full flex items-center justify-start flex-col absolute left-0 top-0 dark:bg-gray-900/50 z-[9999] ">
         <ul className="flex items-center justify-between padding py-4 w-screen">
           <li className="">
             <DropdownMenu>
@@ -53,7 +58,6 @@ const HeaderRes = () => {
                     >
                       <Link href={item.href}>{item.label}</Link>
                     </DropdownMenuItem>
-                    <div className=""></div>
                   </div>
                 ))}
               </DropdownMenuContent>
@@ -81,7 +85,8 @@ const HeaderRes = () => {
               className="w-full flex items-center justify-start gap-x-3 py-3 px-2"
             />
           </span>
-        )}{suggestions && search && (
+        )}
+        {suggestions && search && (
           <SearchSuggestions
             suggestions={suggestions}
             search={search}
@@ -90,7 +95,7 @@ const HeaderRes = () => {
             widthpara="w-full xl:w-[16rem]"
           />
         )}
-      </nav>      
+      </nav>
     </header>
   );
 };
