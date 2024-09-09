@@ -6,6 +6,7 @@ const SearchStyle = ({
   anime,
   index,
   widthpara = "max-sm:w-[40vw] w-[20rem] md:w-[35rem]",
+  onClick
 }) => {
   return (
     <Link
@@ -13,6 +14,7 @@ const SearchStyle = ({
       className={`w-full flex gap-x-4 items-center justify-center py-2 px-3 hover:bg-black/40 ${
         index % 2 === 0 ? "bg-[#212635]" : "bg-bgitem"
       }`}
+      onClick={onClick} // Call the onClick handler when the Link is clicked
     >
       <div className="w-[4.8rem]">
         {anime?.images?.jpg?.large_image_url && (

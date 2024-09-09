@@ -72,7 +72,7 @@ const Fav = ({ animeID, imageUrl, animeName }) => {
   return (
     <button
       onClick={handleAddToFavorites}
-      className={`opacity-100 rounded-t-none rounded-b-md absolute bottom-0 w-full flex items-center justify-center gap-x-3 font-semibold uppercase tracking-tighter py-3 text-white ${
+      className={`opacity-100 rounded-t-none rounded-b-md absolute -bottom-10 w-full flex items-center justify-center gap-x-3 font-semibold uppercase tracking-tighter py-3 text-white text-sm xl:text-md ${
         favoriteAdded ? 'bg-green-800 hover:bg-green-900' : 'bg-[#ff0000] hover:bg-red-600'
       }`}
       disabled={isSubmitting || favoriteAdded}

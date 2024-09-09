@@ -14,6 +14,7 @@ import {
   useUser,
 } from "@clerk/nextjs";
 import MoreThings from "./MoreThings";
+import Image from "next/image";
 
 const Header = () => {
   const pathname = usePathname();
@@ -25,11 +26,16 @@ const Header = () => {
     <>
       <header className="max-xl:hidden bg-white/50 dark:bg-gray-900/50 py-4 absolute w-screen padding overflow-x-hidden z-[9999]">
         <nav className="flex items-start xl:items-center justify-between gap-x-10 gap-y-4 max-xl:flex-col">
-          
-          <MoreThings user={user}/>
           <div className="w-[42rem] flex items-center justify-start">
+            <MoreThings user={user} />
             <Link href="/" className="w-[15rem] font-bold text-xl ">
-              OTAKUTV
+              <Image
+                src="/logoo.svg"
+                width={1200}
+                height={1200}
+                className="w-[9rem] h-[2rem] rounded-[0.6rem] ml-8"
+                alt="Logo"
+              />
             </Link>
             {!isHomePage && (
               <span className="w-[25rem] bg-black/20 border border-[#47567c5c]">

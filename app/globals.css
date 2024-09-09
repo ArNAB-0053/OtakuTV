@@ -1,17 +1,18 @@
 @import url("https://fonts.googleapis.com/css2?family=Pathway+Extreme:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Macondo&display=swap');
-@import'@/styles/FullPageLoader.css' ;
+@import url("https://fonts.googleapis.com/css2?family=Macondo&display=swap");
+@import "@/styles/FullPageLoader.css";
+
+@font-face {
+  font-family: Plutoregular;
+  src: url("/public/Fonts/plutoregular.woff2") format("woff2"),
+    url("/public/Fonts/plutoregular.woff") format("woff");
+}
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@font-face {
-  font-family: Gintronic;
-  src: url("/public/GintronicMediumItalic.otf");
-}
 
 /* Using 
   => destructive -> Anime details TableCell Heading
@@ -19,8 +20,8 @@
 */
 
 .commentTem {
-  backdrop-filter: blur( 6.5px );
-  -webkit-backdrop-filter: blur( 6.5px );
+  backdrop-filter: blur(6.5px);
+  -webkit-backdrop-filter: blur(6.5px);
   border-radius: 10px;
 }
 
@@ -38,13 +39,13 @@
   right: 0; /* Add this */
   margin: 0 auto; /* Add this */
   transform: none; /* Remove the translateX */
-  background-color: #343D56 !important;
+  background-color: #343d56 !important;
 }
 
 .mySwiperComment .swiper-scrollbar-drag {
   background-color: #666;
   border-radius: 10px;
-  background-color: #55648D90 !important;
+  background-color: #55648d90 !important;
 }
 
 .swiperSlideComment {
@@ -132,10 +133,16 @@
     @apply text-destructive;
   }
   .TableCellText {
-    @apply w-full md:w-[18rem] lg:w-full text-destructive-foreground flex items-start justify-start flex-wrap;
+    @apply w-full  lg:w-full text-destructive-foreground flex items-start justify-start flex-wrap;
   }
-  .Table {
-    @apply w-full flex items-start justify-center flex-col text-muted;
+  .Table1 {
+    @apply w-full flex items-start justify-start flex-col text-muted;
+  }
+  .Table2 {
+    @apply w-full flex items-start justify-start flex-col text-muted;
+  }
+  .Table3 {
+    @apply w-full flex items-start justify-start flex-col text-muted;
   }
   .tablebody {
     @apply flex items-center justify-center mt-[-4px];
@@ -149,12 +156,20 @@
     @apply hover:text-red-500 font-semibold;
   }
 
+  h1 {
+    @apply font-black;
+    font-family: Plutoregular, "Macondo","Montserrat", "Pathway Extreme", "Raleway", sans-serif;
+  }
+
   /* .searchstylespan p {
     @apply ;
   } */
 }
 
-
+/* .Table1, .Table2 {
+  background: #000; 
+  width: 70%;
+} */
 
 .animedet {
   background: rgba(255, 255, 255, 0.2);
@@ -167,8 +182,8 @@
 
 .viewallstaff {
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  backdrop-filter: blur( 9px );
-  -webkit-backdrop-filter: blur( 9px );
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
   border-radius: 10px;
 }
 
@@ -187,10 +202,9 @@
   font-family: "Montserrat", "Pathway Extreme", "Raleway", sans-serif;
 }
 
-h1 {
-  font-family: "Macondo", "Montserrat", "Pathway Extreme", "Raleway", sans-serif;
-  font-width: 600;
-}
+/* h1 {
+  font-family: "Macondo","Montserrat", "Pathway Extreme", "Raleway", sans-serif;
+} */
 
 input::placeholder {
   color: var(--background);
@@ -211,7 +225,6 @@ input::placeholder {
   padding-top: 50px;
   padding-bottom: 50px;
 }
-
 
 .swiper-slide {
   background-position: center;
@@ -234,9 +247,3 @@ input::placeholder {
   background-color: #ff0000 !important;
   opacity: 0 !important;
 }
-
-
-
-
-
-

@@ -15,6 +15,7 @@ import { IoIosSearch } from "react-icons/io";
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { useUser } from "@clerk/nextjs"; // Ensure you import useUser from Clerk
+import Image from "next/image";
 
 const HeaderRes = () => {
   const { user, isSignedIn } = useUser(); // Use isSignedIn to check if the user is signed in
@@ -64,7 +65,15 @@ const HeaderRes = () => {
             </DropdownMenu>
           </li>
           <li className="text-xl font-bold flex items-center justify-between">
-            <Link href="/">OTAKUTV</Link>
+          <Link href="/" className="w-[9rem] font-bold text-xl ">
+              <Image
+                src="/logoo.svg"
+                width={1200}
+                height={1200}
+                className="w-[9rem] h-[2rem] rounded-[0.6rem]"
+                alt="Logo"
+              />
+            </Link>
           </li>
           <span className="flex items-center justify-end gap-x-4">
             {!isHomePage && (

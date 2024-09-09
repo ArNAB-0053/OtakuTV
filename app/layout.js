@@ -25,7 +25,7 @@ export default function RootLayout({ children }) {
           colorInputText: "#fefefe",
         },
         layout: {
-          logoImageUrl: "/logo.png",
+          logoImageUrl: "/logoo.svg",
           unsafe_disableDevelopmentModeWarnings: true,
         },
         elements: {

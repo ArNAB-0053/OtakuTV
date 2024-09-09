@@ -7,15 +7,21 @@ import Animedetail from "@/components/MinimalDetails/Animedetail";
 import { useState } from "react";
 import { Duration, rated } from "../SimpleComponents";
 import Fav from "./Favourite/AddFav";
+import SkeletonLoader from "./loading";
 
 const Details = ({ anime }) => {
   const [showMore, setShowMore] = useState(false);
   const ratingDescriptions = rated;
   const durationDetails = Duration(anime.duration);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const handleImageLoad = () => {
+    setIsLoading(false); // Set to false when image is loaded
+  };
   return (
     <div
       key={anime.mal_id}
-      className="relative flex items-center justify-center flex-col"
+      className="relative flex items-center justify-center flex-col w-full"
     >
       <div className="absolute -z-20 -top-36 overflow-hidden">
         <div className="relative w-screen h-[40rem] md:h-[47rem]">
@@ -36,33 +42,40 @@ const Details = ({ anime }) => {
           <div className="viewallstaff bg-[#151923]/50 -z-10 absolute w-screen h-[150vh]"></div>
         </div>
       </div>
-      <div className="w-full mt-[10rem] md:mt-[17rem] xl:mt-[18rem] h-auto grid grid-cols-1 grid-rows-1 md:grid-cols-[17rem_1fr] lg:grid-cols-[22rem_1fr] lg:grid-rows-1 place-items-center md:place-items-start">
-        <span className="flex flex-col w-[55%] md:mt-2 md:w-[13rem] lg:w-[19rem] h-auto lg:row-span-2 relative">
-          <span className="w-full h-full flex items-center justify-center">
-            {anime.images?.jpg?.large_image_url && (
-              <Image
-                src={
-                  anime.images?.jpg?.large_image_url ||
-                  anime.images?.jpg?.image_url
-                }
-                width={200}
-                height={200}
-                className="w-full rounded-[0.6rem]"
-                alt={anime.title_english || anime.title}
-              />
-            )}
-          </span>
-          <Fav
-            animeID={anime.mal_id}
-            animeName={anime.title_english || anime.title}
-            imageUrl={
-              anime.images?.jpg?.large_image_url ||
-              anime.images?.jpg?.image_url ||
-              ""
-            }
-          />
+      <div className="w-full mt-[10rem] md:mt-[17rem] xl:mt-[18rem] xl:pb-8 h-auto grid grid-cols-1 grid-rows-1 md:grid-cols-[auto_1fr] lg:grid-cols-[auto_1fr] lg:grid-rows-1 place-items-center md:place-items-start gap-x-12 lg:gap-y-6 md:gap-y-8 max-md:gap-y-3">
+        <span className="flex flex-col w-[55%] md:w-[12rem] xl:w-[19rem] h-auto lg:row-span-2 relative">
+          {anime.images?.jpg?.large_image_url && (
+            <>
+              {isLoading && <SkeletonLoader />}
+              <span className="w-full flex items-center justify-center">
+                <Image
+                  src={
+                    anime.images?.jpg?.large_image_url ||
+                    anime.images?.jpg?.image_url
+                  }
+                  width={1200}
+                  height={1200}
+                  className="w-full aspect-[3/4] object-cover rounded-[0.6rem]"
+                  alt={anime.title_english || anime.title}
+                  onLoadingComplete={handleImageLoad}
+                />
+                {/* <SkeletonLoader /> */}
+              </span>
+              {!isLoading && (
+                <Fav
+                  animeID={anime.mal_id}
+                  animeName={anime.title_english || anime.title}
+                  imageUrl={
+                    anime.images?.jpg?.large_image_url ||
+                    anime.images?.jpg?.image_url ||
+                    ""
+                  }
+                />
+              )}
+            </>
+          )}
         </span>
-        <div className="text-sm flex items-start justify-start flex-col gap-y-4 w-full">
+        <div className="text-sm flex items-start justify-start flex-col gap-y-4 w-full max-md:mt-16">
           <div className="w-full flex items-start justify-start h-fit flex-col gap-y-5 xl:flex-row">
             <div className="w-full flex items-center md:items-start justify-start flex-col gap-y-4 h-fit">
               <span className="mt-4 md:mt-0 text-start flex items-center justify-center text-xl md:text-2xl lg:text-4xl gap-x-2 ">
@@ -116,8 +129,7 @@ const Details = ({ anime }) => {
             </button>
           </span>
         </div>
-        <div
-          className={`w-full flex h-full items-start justify-between flex-col `}
+        <div className="w-full flex h-full items-start justify-start flex-col max-md:col-span-1 max-xl:col-span-2"
         >
           <Animedetail
             type={anime.type}

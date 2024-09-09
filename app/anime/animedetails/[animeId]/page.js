@@ -42,7 +42,7 @@ const Page = async ({ params }) => {
           <div className="w-[80%] h-[1px] bg-white/30 mb-3"></div>
           <Recom animeId={anime.mal_id} />
         </div>
-        <div className="w-full -mt-7 xl:mt-10 xl:w-[35%]">
+        <div className="w-full -mt-16 xl:mt-10 xl:w-[35%]">
           <h1 className="text-3xl font-bold mb-4 uppercase">Top Anime</h1>
           <TopAnime />
         </div>

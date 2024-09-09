@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { HiOutlineMenuAlt1 } from "react-icons/hi";
 import { useState } from "react/";
@@ -22,12 +22,12 @@ const MoreThings = ({ user }) => {
           setIsOpen={setIsOpen}
         />
         <SheetTemplate link="/Airing" title="On Going" setIsOpen={setIsOpen} />
-        <SheetTemplate link="/Recent" title="added" setIsOpen={setIsOpen} />
         <SheetTemplate
-          link="/Popular"
-          title="most popular"
+          link="/Upcoming"
+          title="upcoming"
           setIsOpen={setIsOpen}
         />
+        <SheetTemplate link="/Recent" title="added" setIsOpen={setIsOpen} />
         <SheetTemplate
           link={`/Favourite/${user?.id}`}
           title="favourite"

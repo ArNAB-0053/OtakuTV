@@ -1,10 +1,8 @@
-"use client";
-
+import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { Button } from "../ui/button";
-import SearchStyle from "./SearchStyle";
 import { FaArrowRight } from "react-icons/fa";
+import SearchStyle from "./SearchStyle";
 
 const SearchSuggestions = ({
   suggestions,
@@ -14,7 +12,7 @@ const SearchSuggestions = ({
 }) => {
   const router = useRouter();
   const suggestionsRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(true);  
+  const [isVisible, setIsVisible] = useState(true);
 
   // Handle click outside the suggestions to close it
   useEffect(() => {
@@ -42,6 +40,12 @@ const SearchSuggestions = ({
     }
   };
 
+  const handleSuggestionClick = (anime) => {
+    // Navigate or perform action with selected anime
+    router.push(`/anime/${anime.id}`); // Example route, adjust as needed
+    setIsVisible(false); // Hide the suggestions list after selecting an option
+  };
+
   if (!isVisible) return null; // Hide the component if `isVisible` is false
 
   return (
@@ -52,6 +56,7 @@ const SearchSuggestions = ({
           anime={anime}
           index={index}
           widthpara={widthpara}
+          onClick={() => handleSuggestionClick(anime)} // Add click handler
         />
       ))}
       <Button
