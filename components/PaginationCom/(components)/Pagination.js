@@ -14,7 +14,7 @@ const PaginationForAll = ({handlePageChange, page, totalPages}) => {
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious
-              className="cursor-pointer select-none"
+              className="cursor-pointer select-none hover:bg-bgitem"
               onClick={() => handlePageChange(Math.max(1, Number(page) - 1))}
               disabled={page === 1}
             />
@@ -30,7 +30,7 @@ const PaginationForAll = ({handlePageChange, page, totalPages}) => {
                 >
                   <PaginationLink
                     onClick={() => handlePageChange(pageNumber)}
-                    className={`${isActive ? "bg-bgitem" : ""}`}
+                    className={`${isActive ? "bg-bgitem" : ""} hover:bg-bgitem`}
                   >
                     {pageNumber}
                   </PaginationLink>
@@ -42,7 +42,7 @@ const PaginationForAll = ({handlePageChange, page, totalPages}) => {
           {totalPages > 5 && <PaginationEllipsis />}
           <PaginationItem>
             <PaginationNext
-              className="cursor-pointer select-none"
+              className="cursor-pointer select-none hover:bg-bgitem"
               onClick={() =>
                 handlePageChange(Math.min(totalPages, Number(page) + 1))
               }

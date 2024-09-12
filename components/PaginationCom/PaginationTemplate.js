@@ -9,12 +9,12 @@ import HomeAnimes from "./(Home)/HomeAnimes";
 import Animes from "./(components)/Animes";
 import Error from "./error";
 
-
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 
 const PaginationTemplate = ({
   url = "/api/anime?",
   animeLink = "anime/animedetails",
+  extraParams = "" 
 }) => {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
@@ -42,11 +42,8 @@ const PaginationTemplate = ({
   }, [deviceWidth, isHomePage]);
 
   // console.log(deviceWidth)
-
-  const { data, error, isLoading } = useSWR(
-    `${url}page=${page}&limit=${limit}`,
-    fetcher
-  );
+  const urlWithParams = `${url}page=${page}&limit=${limit}${extraParams}`;
+  const { data, error, isLoading } = useSWR(urlWithParams, fetcher);
 
   const [showError, setShowError] = useState(false);
 

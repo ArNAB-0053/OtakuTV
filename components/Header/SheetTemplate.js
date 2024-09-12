@@ -8,7 +8,7 @@ const SheetTemplate = ({link, title, setIsOpen}) => {
   return (
     <>
       <SheetHeader
-        className="flex items-start justify-center flex-col px-4 w-full"
+        className="flex items-start justify-center flex-col px-4 w-full hover:text-[#ff0000] font-semibold hover:font-bold"
         onClickClose={() => setIsOpen(false)}
       >
         <Link href={link}> {title} </Link>

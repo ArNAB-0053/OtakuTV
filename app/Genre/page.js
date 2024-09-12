@@ -4,7 +4,7 @@ import PaginationTemplate from "@/components/PaginationCom/PaginationTemplate";
 import GenreSelection from "@/components/Genre/GenreSelection";
 
 
-const GenrePage = () => {
+const Page = () => {
   const [genres, setGenres] = useState([]);
 
   const handleGenreChange = (selectedGenres) => {
@@ -14,13 +14,13 @@ const GenrePage = () => {
   const genreQuery = genres.length > 0 ? genres.join(",") : "1"; // Fallback to genre id 1 if no genre selected
 
   return (
-    <div >
+    <div className="pt-6">
       <GenreSelection onGenreChange={handleGenreChange} />
-      <PaginationTemplate url={`https://api.jikan.moe/v4/anime?genres=${genreQuery}&`} />
+      <PaginationTemplate url={`https://api.jikan.moe/v4/anime?genres=${genreQuery}&`} extraParams="&order_by=popularity" />
     </div>
   );
 };
 
-export default GenrePage;
+export default Page;
 
 

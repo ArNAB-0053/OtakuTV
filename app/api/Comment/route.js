@@ -4,8 +4,7 @@ import { NextResponse } from "next/server";
 
 export async function POST(req) {
   try {
-    const { userID, userName, comment, animeID, hasImage, imageUrl } =
-      await req.json();
+    const { userID, userName, comment, animeID, hasImage, imageUrl } = await req.json();
     if (!userID || !userName || !comment || !animeID || !hasImage) {
       return NextResponse.json(
         { message: "Missing required fields" },

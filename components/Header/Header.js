@@ -13,7 +13,7 @@ import {
   UserButton,
   useUser,
 } from "@clerk/nextjs";
-import MoreThings from "./MoreThings";
+import MoreThings from "./Sidebar";
 import Image from "next/image";
 
 const Header = () => {
@@ -49,7 +49,7 @@ const Header = () => {
 
           <ul className="max-xl:hidden flex w-auto items-center justify-evenly gap-x-7 uppercase font-medium">
             <li>
-              <Link href="/Airing"> On Going </Link>
+              <Link href="/Genre"> Genre </Link>
             </li>
             <li>
               <Link href="/Upcoming"> Upcoming </Link>
