@@ -78,3 +78,37 @@ export async function GET(req) {
 }
 
 
+export async function DELETE(req) {
+  const { userID, animeID } = await req.json();
+
+  if (!userID || !animeID) {
+    return NextResponse.json(
+      { message: "Missing required fields" },
+      { status: 400 }
+    );
+  }
+
+  await connectMongodb();
+
+  try {
+    const result = await Favorite.deleteOne({ userID, animeID });
+
+    if (result.deletedCount > 0) {
+      return NextResponse.json(
+        { message: "Favorite removed successfully" },
+        { status: 200 }
+      );
+    } else {
+      return NextResponse.json(
+        { message: "Favorite not found" },
+        { status: 404 }
+      );
+    }
+  } catch (error) {
+    console.error("Error removing favorite:", error);
+    return NextResponse.json(
+      { message: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+}

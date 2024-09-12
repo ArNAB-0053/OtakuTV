@@ -27,15 +27,15 @@ const PaginationTemplate = ({
   const deviceWidth = useDeviceWidthContext();
   useEffect(() => {
     if (!isHomePage) {
-      if (deviceWidth == "md") setLimit(16);
+      if (deviceWidth == "sm") setLimit(10);
+      else if (deviceWidth == "md") setLimit(16);
       else if (deviceWidth == "lg") setLimit(20);
-      else if (deviceWidth == "sm") setLimit(10);
       else if (deviceWidth == "xl") setLimit(20);
       else setLimit(21);
     } else {
-      if (deviceWidth == "md") setLimit(10);
+      if (deviceWidth == "sm") setLimit(8)
+      else if (deviceWidth == "md") setLimit(10);
       else if (deviceWidth == "lg") setLimit(10);
-      else if (deviceWidth == "sm") setLimit(8);
       else if (deviceWidth == "xl") setLimit(10);
       else setLimit(14);
     }

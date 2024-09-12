@@ -15,6 +15,7 @@ import {
 } from "@clerk/nextjs";
 import MoreThings from "./Sidebar";
 import Image from "next/image";
+import { FaHeart } from "react-icons/fa";
 
 const Header = () => {
   const pathname = usePathname();
@@ -52,13 +53,7 @@ const Header = () => {
               <Link href="/Genre"> Genre </Link>
             </li>
             <li>
-              <Link href="/Upcoming"> Upcoming </Link>
-            </li>
-            <li>
-              <Link href="/Recent"> Added </Link>
-            </li>
-            <li>
-              <Link href={`/Favourite/${user?.id}`}> Favourite </Link>
+              <Link href={`/Favourite/${user?.id}`} className="flex items-center justify-center gap-x-2"> <FaHeart color="red" /> Favourite </Link>
             </li>
             <li>
               <SignedOut>
