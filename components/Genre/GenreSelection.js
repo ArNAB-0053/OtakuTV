@@ -45,17 +45,18 @@ const GenreSelection = ({ onGenreChange }) => {
 
   return (
     <div className="flex flex-col gap-2 padding">
-      <span className="flex items-start justify-start gap-x-3 gap-y-1 max-lg:flex-col">
+      <span className="flex items-start justify-start gap-x-6 gap-y-1 max-lg:flex-col">
         <input
           type="text"
           placeholder="Search genres..."
           value={searchTerm}
           onChange={handleSearchChange}
-          className="mb-2 px-3 py-2 text-sm border rounded w-full lg:w-[50vw] appearance-none outline-none bg-transparent placeholder:text-white/50"
+          className="mb-2 px-3 py-2 text-sm border rounded w-full lg:w-[40vw] appearance-none outline-none bg-bgitem placeholder:text-white/50"
         />
         <Button
           onClick={toggleGenreVisibility}
           disabled={isSearching}
+          className="text-white/50 hover:text-white/70"
         >
           {isGenreVisible ? "Hide Genre" : "All Genre"}
         </Button>
@@ -71,7 +72,7 @@ const GenreSelection = ({ onGenreChange }) => {
               className={`px-3 py-1 text-sm font-medium transition-colors rounded-full ${
                 selectedGenres.includes(genre.id)
                   ? "bg-[#ff0000] text-white"
-                  : "bg-bgitem hover:bg-bgtop"
+                  : "bg-bgitem hover:bg-bgtop text-white/50"
               }`}
             >
               {genre.name}
