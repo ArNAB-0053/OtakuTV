@@ -64,11 +64,11 @@ const AddComment = ({ animeId, setAddCommentSpan }) => {
     <div className="w-full h-full p-6 bg-gradient-to-r from-[#000] to-[#1c1c1c] rounded-lg shadow-lg">
       <form
         onSubmit={handleSubmit}
-        className="flex items-center justify-between max-md:flex-col gap-10 w-full h-full"
+        className="flex items-center justify-center max-md:flex-col gap-x-10 w-full h-full"
       >
         {/* Avatar Selection */}
-        <div className="max-md:w-full w-[20rem]">
-          <h2 className="text-lg font-bold mb-4 text-white text-center">Select your Avatar</h2>
+        <div className="max-md:w-full w-[20rem] h-auto ">
+          <h2 className="text-lg font-semibold mb-4 text-white/70 text-center">Select your Avatar</h2>
           <AvatarSelectionForm
             currentUserImage={selectedImage}
             onImageSelect={setSelectedImage}

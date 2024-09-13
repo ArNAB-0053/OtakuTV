@@ -15,7 +15,7 @@ const AvatarSelectionForm = ({ currentUserImage, onImageSelect }) => {
   };
 
   return (
-    <div className="grid max-md:grid-cols-6 grid-cols-5 gap-4 mb-6">
+    <div className="grid max-sm:grid-cols-6 sm:grid-cols-8 md:grid-cols-5 gap-4 mb-6">
       {avatarImages.map((image, index) => (
         <div key={index} className="cursor-pointer w-full">
           <Image

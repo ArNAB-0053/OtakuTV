@@ -1,119 +1,78 @@
-import { useState } from "react";
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { Input } from "@/components/ui/input";
-import AvatarSelectionForm from "./AvatarSelectionForm"; // Assuming the path is correct
-import { useUser } from "@clerk/nextjs";
-import useSWR from "swr";
-import { useRouter } from "next/navigation";
+import React from 'react';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination"
+import { FiChevronsLeft,  FiChevronsRight } from 'react-icons/fi';
+import { GrNext, GrPrevious } from 'react-icons/gr';
 
-const AddComment = ({ animeId, setAddCommentSpan }) => {
-  const { isSignedIn, user } = useUser();
-  const [comment, setComment] = useState("");
-  const [userName, setUserName] = useState(user?.firstName || "");
-  const [selectedImage, setSelectedImage] = useState(user?.imageUrl || "");
-  const { data: comments, mutate } = useSWR(`/api/Comment?animeID=${animeId}`);
-  const router = useRouter();
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!comment) {
-      alert("Please enter a comment!");
-      return;
-    }
-    if (!isSignedIn) {
-      router.push("/sign-in");
-      return;
-    }
-
-    try {
-      const res = await fetch("/api/Comment", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          comment,
-          userID: user.id,
-          userName: userName || user.firstName,
-          animeID: animeId,
-          hasImage: true,
-          imageUrl: selectedImage,
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-        }),
-      });
-
-      if (res.ok) {
-        setComment("");
-        mutate();
-        setAddCommentSpan(false);
-      } else {
-        const errorData = await res.json();
-        console.log("Failed to post comment:", errorData);
-        alert(`Error: ${errorData.message}`);
-      }
-    } catch (err) {
-      console.log("Error occurred while posting comment:", err);
-      alert("An unexpected error occurred. Please try again.");
-    }
-  };
+const PaginationComponent = ({ currentPage, totalPages, onPageChange }) => {
+  const pageNumbers = [];
+  for (let i = 1; i <= totalPages; i++) {
+    pageNumbers.push(i);
+  }
 
   return (
-    <div className="w-full h-full p-6 bg-gradient-to-r from-[#000] to-[#1c1c1c] rounded-lg shadow-lg">
-      <form
-        onSubmit={handleSubmit}
-        className="flex items-center justify-between gap-10 w-full h-full"
-      >
-        {/* Avatar Selection */}
-        <div className="w-[20rem]">
-          <h2 className="text-lg font-bold mb-4 text-white text-center">Select your Avatar</h2>
-          <AvatarSelectionForm
-            currentUserImage={selectedImage}
-            onImageSelect={setSelectedImage}
+    <Pagination>
+      <PaginationContent>
+        <PaginationItem>
+          <PaginationLink 
+            onClick={() => onPageChange(1)}
+            disabled={currentPage === 1}
+            className={`cursor-pointer select-none hover:text-red-600 hover:bg-transparent flex items-center justify-center ${(currentPage===1 || currentPage===2) && "text-white/50 hover:text-white/50 hidden"}`}
+          >
+            <FiChevronsLeft className="h-4 w-4" />
+          </PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationPrevious 
+            onClick={() => onPageChange(Math.max(1, currentPage - 1))}
+            disabled={currentPage === 1}
+            Previous={<GrPrevious size={15} />}
+            noIcon={true}
+            className={`cursor-pointer select-none hover:text-red-600 hover:bg-transparent flex items-center justify-center ${currentPage===1 && "text-white/50 hover:text-white/50 hidden"}`}
           />
-        </div>
+        </PaginationItem>
 
-        {/* Form Section with Selected Image */}
-        <div className="flex items-center justify-center flex-col gap-6 w-[60%] bg-[#131313] p-6 rounded-lg shadow-lg">
-          {/* Display Selected Image */}
-          <div className="mb-4">
-            <Image
-              src={selectedImage || "/default-avatar.png"}
-              alt="Selected avatar"
-              width={120}
-              height={120}
-              className="rounded-full shadow-lg ring-4 ring-[#ff0000]"
-            />
-          </div>
+        {pageNumbers.map((number) => (
+          <PaginationItem key={number} className=" cursor-pointer select-none">
+            {Math.abs(currentPage - number) < 2 ? (
+              <PaginationLink 
+                onClick={() => onPageChange(number)}
+                className={currentPage === number ? "bg-red-500 hover:bg-red-600 text-white" : ""}
+              >
+                {number}
+              </PaginationLink>
+            ) : number === 2 || number === totalPages - 1 }
+          </PaginationItem>
+        ))}
 
-          {/* Username Input */}
-          <Input
-            onChange={(e) => setUserName(e.target.value)}
-            value={userName}
-            type="text"
-            placeholder="Enter your username (optional)"
-            className="text-white bg-[#1c1c1c] border border-gray-600 p-2 rounded-md w-full"
+        <PaginationItem>
+          <PaginationNext 
+            onClick={() => onPageChange(Math.min(totalPages, currentPage + 1))}
+            disabled={currentPage === totalPages}
+            Next={<GrNext size={15} />}
+            noIcon={true}
+            className={`cursor-pointer select-none hover:text-red-600 hover:bg-transparent flex items-center justify-center ${currentPage===totalPages && "text-white/50 hover:text-white/50 hidden "}`}
           />
-
-          {/* Comment Box */}
-          <Textarea
-            onChange={(e) => setComment(e.target.value)}
-            value={comment}
-            type="text"
-            placeholder="Add your comment"
-            className="h-[8rem] text-white bg-[#1c1c1c] border border-gray-600 p-2 rounded-md w-full"
-          />
-
-          {/* Submit Button */}
-          <Button type="submit" className="w-full bg-[#ff0000] hover:bg-[#ff0000]/80 text-white font-bold py-2 rounded-md">
-            Submit
-          </Button>
-        </div>
-      </form>
-    </div>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink 
+            onClick={() => onPageChange(totalPages)}
+            disabled={currentPage === totalPages}
+            className={`cursor-pointer select-none hover:text-red-600 hover:bg-transparent flex items-center justify-center ${(currentPage===totalPages || currentPage===totalPages-1) && "text-white/50 hover:text-white/50  hidden"}`}
+          >
+            < FiChevronsRight className="h-4 w-4" />
+          </PaginationLink>
+        </PaginationItem>
+      </PaginationContent>
+    </Pagination>
   );
 };
 
-export default AddComment;
+export default PaginationComponent;

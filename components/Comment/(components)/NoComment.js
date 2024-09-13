@@ -3,8 +3,14 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import AddComment from "./AddComment";
+import AddCommentForm from "./AddCommentForm";
 
-const NoComment = ({ setAddCommentSpan, addCommentSpan, animeId, handleAddCommentClick }) => {
+const NoComment = ({
+  setAddCommentSpan,
+  addCommentSpan,
+  animeId,
+  handleAddCommentClick,
+}) => {
   return (
     <>
       <div className="w-full h-[20rem] flex items-center justify-between max-xl:justify-center max-xl:flex-col">
@@ -34,18 +40,10 @@ const NoComment = ({ setAddCommentSpan, addCommentSpan, animeId, handleAddCommen
         />
       </div>
       {addCommentSpan && (
-        <>
-          <div
-            className="fixed inset-0 viewallstaff bg-background/25 z-[9998]"
-            onClick={() => setAddCommentSpan(false)}
-          ></div>
-          <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-background lg:w-[30rem] w-[90%] h-[15rem] p-10 z-[9999] rounded-md">
-            <AddComment
-              animeId={animeId}
-              setAddCommentSpan={setAddCommentSpan} // Pass the state setter function
-            />
-          </span>
-        </>
+        <AddCommentForm
+          setAddCommentSpan={setAddCommentSpan}
+          animeId={animeId}
+        />
       )}
     </>
   );

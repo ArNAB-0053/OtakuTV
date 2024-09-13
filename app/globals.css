@@ -4,6 +4,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Macondo&display=swap");
 @import "@/styles/FullPageLoader.css";
 
+.grid {
+  overflow-y: visible; /* Prevents scrolling */
+}
+
+.viewAllbg-glass {
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
 @font-face {
   font-family: Plutoregular;
   src: url("/public/Fonts/plutoregular.woff2") format("woff2"),
@@ -172,10 +182,7 @@
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
   }
-
 }
-
-
 
 /* .Table1, .Table2 {
   background: #000; 

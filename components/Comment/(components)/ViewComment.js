@@ -11,13 +11,13 @@ import Error from "./error";
 import NoComment from "./NoComment";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-
+import AddCommentForm from "./AddCommentForm";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const ViewComment = ({ animeId, isVisible, handleToggle }) => {
   const { isSignedIn } = useUser();
-  const router = useRouter()
+  const router = useRouter();
   const [addCommentSpan, setAddCommentSpan] = useState(false);
 
   const { data, error, isLoading } = useSWR(
@@ -45,7 +45,7 @@ const ViewComment = ({ animeId, isVisible, handleToggle }) => {
     if (isSignedIn) {
       setAddCommentSpan(true);
     } else {
-      router.push('/sign-in'); // Redirect to sign-in page
+      router.push("/sign-in"); // Redirect to sign-in page
     }
   };
 
@@ -93,18 +93,10 @@ const ViewComment = ({ animeId, isVisible, handleToggle }) => {
       </span>
 
       {addCommentSpan && (
-        <div className="fixed inset-0 z-[9998]  flex items-center justify-center">
-          <div
-            className="fixed inset-0 viewallstaff bg-background/50 z-[9994]"
-            onClick={() => setAddCommentSpan(false)}
-          ></div>
-          <span className="glassmorphiem-morethings bg-black/50 lg:w-[50rem] w-full p-10 rounded-md relative z-[9996]">
-            <AddComment
-              animeId={animeId}
-              setAddCommentSpan={setAddCommentSpan} // Pass the state setter function
-            />
-          </span>
-        </div>
+        <AddCommentForm
+          setAddCommentSpan={setAddCommentSpan}
+          animeId={animeId}
+        />
       )}
     </>
   );
