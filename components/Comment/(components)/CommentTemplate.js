@@ -28,7 +28,7 @@ const CommentTemplate = ({ data }) => {
           key={comment._id}
           className="flex-shrink-0 swiperSlideComment"
         >
-          <div className="bg-gradient-to-b from-[#3b466170] via-[#3b456250] to-transparent commentTem p-4 rounded w-full h-[13rem] flex-shrink-0 rounded-t-xl cursor-pointer flex items-start justify-start flex-col">
+          <div className="bg-gradient-to-b from-[#262b39be] via-[#262b399c] to-transparent commentTem p-4 rounded w-full h-[13rem] flex-shrink-0 rounded-t-xl cursor-pointer flex items-start justify-start flex-col">
             <div className="flex items-center justify-start gap-x-4">
               <span>
                 {comment.hasImage ? (

@@ -11,7 +11,7 @@ const Comment = ({ animeId }) => {
   return (
     <div className="w-full">
       <span
-        className={`flex ${isVisible ? "items-end h-[20rem] pt-10" : "items-center h-[4rem]" } justify-between bg-[#272e41]/70 mt-10 w-screen xl:-ml-28 lg:-ml-10 md:-ml-12 -ml-6 md:px-12 lg:px-10 xl:px-28 px-6 relative`}
+        className={`flex ${isVisible ? "items-end h-[20rem] pt-10" : "items-center h-[4rem]" } justify-between bg-[#1d212c] mt-10 w-screen xl:-ml-28 lg:-ml-10 md:-ml-12 -ml-6 md:px-12 lg:px-10 xl:px-28 px-6 relative`}
       >
         {isVisible ? (
           <ViewComment

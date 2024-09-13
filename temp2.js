@@ -1,96 +1,119 @@
+import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import PaginationForAll from "./Pagination";
-import { rated } from "@/components/SimpleComponents";
-import { TbTriangleFilled } from "react-icons/tb";
-import { useDeviceWidthContext } from "@/context/page";
-import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
+import AvatarSelectionForm from "./AvatarSelectionForm"; // Assuming the path is correct
+import { useUser } from "@clerk/nextjs";
+import useSWR from "swr";
+import { useRouter } from "next/navigation";
 
-const Animes = ({
-  animeLink,
-  animeList,
-  handlePageChange,
-  page,
-  totalPages,
-}) => {
-  const rating = rated;
+const AddComment = ({ animeId, setAddCommentSpan }) => {
+  const { isSignedIn, user } = useUser();
+  const [comment, setComment] = useState("");
+  const [userName, setUserName] = useState(user?.firstName || "");
+  const [selectedImage, setSelectedImage] = useState(user?.imageUrl || "");
+  const { data: comments, mutate } = useSWR(`/api/Comment?animeID=${animeId}`);
+  const router = useRouter();
 
-  const [limit, setLimit] = useState(6);
-  const [noRow, setNoRow] = useState(6);
-  const deviceWidth = useDeviceWidthContext();
-  useEffect(() => {
-    if (deviceWidth == "md") {
-      setLimit(16);
-      setNoRow(4);
-    } else if (deviceWidth == "lg") {
-      setLimit(20);
-      setNoRow(4);
-    } else if (deviceWidth == "sm") {
-      setLimit(10);
-      setNoRow(5);
-    } else if (deviceWidth == "xl") {
-      setLimit(20);
-      setNoRow(4);
-    } else {
-      setLimit(21);
-      setNoRow(3);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!comment) {
+      alert("Please enter a comment!");
+      return;
     }
-  }, [deviceWidth]);
+    if (!isSignedIn) {
+      router.push("/sign-in");
+      return;
+    }
 
-  const roundedValue = Math.ceil(limit / noRow);
+    try {
+      const res = await fetch("/api/Comment", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          comment,
+          userID: user.id,
+          userName: userName || user.firstName,
+          animeID: animeId,
+          hasImage: true,
+          imageUrl: selectedImage,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        }),
+      });
+
+      if (res.ok) {
+        setComment("");
+        mutate();
+        setAddCommentSpan(false);
+      } else {
+        const errorData = await res.json();
+        console.log("Failed to post comment:", errorData);
+        alert(`Error: ${errorData.message}`);
+      }
+    } catch (err) {
+      console.log("Error occurred while posting comment:", err);
+      alert("An unexpected error occurred. Please try again.");
+    }
+  };
 
   return (
-    <div className="flex items-center justify-center flex-col padding w-screen">
-      <div
-        className={`grid gap-6 w-full max-w-screen-xl mx-auto h-full
-          ${
-            animeList.length > roundedValue
-              ? "grid-cols-[repeat(auto-fit,minmax(9rem,1fr))]"
-              : `grid-cols-${roundedValue}`
-          } 
-        `}
+    <div className="w-full h-full p-6 bg-gradient-to-r from-[#000] to-[#1c1c1c] rounded-lg shadow-lg">
+      <form
+        onSubmit={handleSubmit}
+        className="flex items-center justify-between gap-10 w-full h-full"
       >
-        {animeList?.map((anime) => (
-          <Link
-            href={`${animeLink}/${anime.mal_id}`}
-            key={anime.mal_id}
-            className="flex items-center justify-center flex-col mb-4 relative group"
-          >
-            <span className="w-full aspect-[3/4] rounded-sm overflow-hidden relative">
-              <Image
-                src={anime.images.jpg.image_url}
-                layout="fill"
-                objectFit="cover"
-                className="animation"
-                alt={anime.title_english || anime.title}
-              />
-              <span className="inset-0 absolute infoHover opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-              <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <TbTriangleFilled
-                  className="rotate-90"
-                  size={36}
-                  color="#ffffff"
-                />
-              </span>
-            </span>
-            <h2 className="mt-2 truncate w-full text-center text-sm">
-              {anime.title_english || anime.title}
-            </h2>
-            {["R-17+", "R+", "RX"].includes(rating[anime.rating]) && (
-              <p className="absolute left-0 top-0 bg-[#ff0000]/80 text-white/80 font-semibold text-[0.7rem] px-1 py-[1px] rounded-ss-sm">
-                18+
-              </p>
-            )}
-          </Link>
-        ))}
-      </div>
-      <PaginationForAll
-        handlePageChange={handlePageChange}
-        page={page}
-        totalPages={totalPages}
-      />
+        {/* Avatar Selection */}
+        <div className="w-[20rem]">
+          <h2 className="text-lg font-bold mb-4 text-white text-center">Select your Avatar</h2>
+          <AvatarSelectionForm
+            currentUserImage={selectedImage}
+            onImageSelect={setSelectedImage}
+          />
+        </div>
+
+        {/* Form Section with Selected Image */}
+        <div className="flex items-center justify-center flex-col gap-6 w-[60%] bg-[#131313] p-6 rounded-lg shadow-lg">
+          {/* Display Selected Image */}
+          <div className="mb-4">
+            <Image
+              src={selectedImage || "/default-avatar.png"}
+              alt="Selected avatar"
+              width={120}
+              height={120}
+              className="rounded-full shadow-lg ring-4 ring-[#ff0000]"
+            />
+          </div>
+
+          {/* Username Input */}
+          <Input
+            onChange={(e) => setUserName(e.target.value)}
+            value={userName}
+            type="text"
+            placeholder="Enter your username (optional)"
+            className="text-white bg-[#1c1c1c] border border-gray-600 p-2 rounded-md w-full"
+          />
+
+          {/* Comment Box */}
+          <Textarea
+            onChange={(e) => setComment(e.target.value)}
+            value={comment}
+            type="text"
+            placeholder="Add your comment"
+            className="h-[8rem] text-white bg-[#1c1c1c] border border-gray-600 p-2 rounded-md w-full"
+          />
+
+          {/* Submit Button */}
+          <Button type="submit" className="w-full bg-[#ff0000] hover:bg-[#ff0000]/80 text-white font-bold py-2 rounded-md">
+            Submit
+          </Button>
+        </div>
+      </form>
     </div>
   );
 };
 
-export default Animes;
+export default AddComment;

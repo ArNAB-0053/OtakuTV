@@ -93,18 +93,18 @@ const ViewComment = ({ animeId, isVisible, handleToggle }) => {
       </span>
 
       {addCommentSpan && (
-        <>
+        <div className="fixed inset-0 z-[9998]  flex items-center justify-center">
           <div
-            className="fixed inset-0 viewallstaff bg-background/25 z-[9998]"
+            className="fixed inset-0 viewallstaff bg-background/50 z-[9994]"
             onClick={() => setAddCommentSpan(false)}
           ></div>
-          <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-background lg:w-[30rem] w-[90%] h-[15rem] p-10 z-[9999] rounded-md">
+          <span className="glassmorphiem-morethings bg-black/50 lg:w-[50rem] w-full p-10 rounded-md relative z-[9996]">
             <AddComment
               animeId={animeId}
               setAddCommentSpan={setAddCommentSpan} // Pass the state setter function
             />
           </span>
-        </>
+        </div>
       )}
     </>
   );
