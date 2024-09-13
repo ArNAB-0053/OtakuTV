@@ -2,7 +2,7 @@ import { useState } from "react";
 import Image from "next/image";
 
 // Assuming you have 11 images named 1.png, 2.png, etc., in the Avatar folder
-const avatarImages = Array.from({ length: 11 }, (_, i) => `/Avatar/${i + 1}.png`);
+const avatarImages = Array.from({ length: 11 }, (_, i) => `/Images/${i + 1}.png`);
 
 const AvatarSelectionForm = ({ currentUserImage, onImageSelect }) => {
   const [selectedImage, setSelectedImage] = useState(currentUserImage);
