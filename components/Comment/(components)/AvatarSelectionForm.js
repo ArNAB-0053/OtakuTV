@@ -2,7 +2,9 @@ import { useState } from "react";
 import Image from "next/image";
 
 // Assuming you have 11 images named 1.png, 2.png, etc., in the Avatar folder
-const avatarImages = Array.from({ length: 11 }, (_, i) => `/Images/${i + 1}.png`);
+const avatarImages = Array.from({ length: 11 }, (_, i) => 
+    `https://firebasestorage.googleapis.com/v0/b/internproject-5d594.appspot.com/o/${i + 1}.png?alt=media&token=a116e95c-e213-4f2c-bbd2-73319218d834`
+  );
 
 const AvatarSelectionForm = ({ currentUserImage, onImageSelect }) => {
   const [selectedImage, setSelectedImage] = useState(currentUserImage);

@@ -16,6 +16,11 @@ const nextConfig = {
             protocol: 'https',
             hostname: 'img.clerk.com',
             port: ''
+          },
+          {
+            protocol: 'https',
+            hostname: 'firebasestorage.googleapis.com',
+            port: '',
           }
         ],
       },
