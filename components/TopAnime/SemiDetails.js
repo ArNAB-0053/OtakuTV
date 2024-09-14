@@ -6,7 +6,7 @@ const SemiDetails = ({anime, rank}) => {
   return (
     <Link
       href={`${anime?.mal_id}`}
-      className="w-full flex gap-4 items-center justify-start mb-4 bg-bgtop"
+      className="w-full flex gap-4 items-center justify-start mb-4 bg-bgtop hover:bg-[#2126358b]"
     >
       <div className="w-[4.5rem] aspect-[3/4]">
         {anime?.images?.jpg?.large_image_url && (

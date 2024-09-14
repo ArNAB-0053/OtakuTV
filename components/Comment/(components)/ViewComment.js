@@ -74,7 +74,7 @@ const ViewComment = ({ animeId, isVisible, handleToggle }) => {
         width={1200}
         height={1200}
         alt="error"
-        className="w-[18rem] h-[18rem] max-lg:hidden"
+        className="w-[18rem] h-[20rem] max-lg:hidden"
       />
       <span className="overflow-hidden flex items-center justify-between flex-col w-full">
         <span className="flex items-center justify-between w-full mb-4">

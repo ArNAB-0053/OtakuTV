@@ -1,78 +1,105 @@
-import React from 'react';
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination"
-import { FiChevronsLeft,  FiChevronsRight } from 'react-icons/fi';
-import { GrNext, GrPrevious } from 'react-icons/gr';
+"use client";
+import useSWR from "swr";
+import Loading from "./loading";
+import CommentTemplate from "./CommentTemplate";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import AddComment from "./AddComment";
+import { useState, useEffect } from "react";
+import ToggleComments from "./ToggleComments";
+import Error from "./error";
+import NoComment from "./NoComment";
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
+import AddCommentForm from "./AddCommentForm";
 
-const PaginationComponent = ({ currentPage, totalPages, onPageChange }) => {
-  const pageNumbers = [];
-  for (let i = 1; i <= totalPages; i++) {
-    pageNumbers.push(i);
-  }
+const fetcher = (url) => fetch(url).then((res) => res.json());
+
+const ViewComment = ({ animeId, isVisible, handleToggle }) => {
+  const { isSignedIn } = useUser();
+  const router = useRouter();
+  const [addCommentSpan, setAddCommentSpan] = useState(false);
+
+  const { data, error, isLoading } = useSWR(
+    `/api/Comment?animeID=${animeId}`,
+    fetcher,
+    {
+      refreshInterval: 1000, // Poll every 1 second
+    }
+  );
+
+  const sortedComments = data?.comments?.sort(
+    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+  );
+  useEffect(() => {
+    if (addCommentSpan) {
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden"; // Ensure html also has no scroll
+    } else {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = ""; // Reset html overflow
+    }
+  }, [addCommentSpan]);
+
+  const handleAddCommentClick = () => {
+    if (isSignedIn) {
+      setAddCommentSpan(true);
+    } else {
+      router.push("/sign-in"); // Redirect to sign-in page
+    }
+  };
+
+  if (error) return <Error />;
+  if (isLoading)
+    return (
+      <div className="absolute inset-0 flex items-center justify-center">
+        <Loading />
+      </div>
+    );
+
+  if (sortedComments.length == 0)
+    return (
+      <NoComment
+        setAddCommentSpan={setAddCommentSpan}
+        animeId={animeId}
+        addCommentSpan={addCommentSpan}
+        handleAddCommentClick={handleAddCommentClick}
+      />
+    );
 
   return (
-    <Pagination>
-      <PaginationContent>
-        <PaginationItem>
-          <PaginationLink 
-            onClick={() => onPageChange(1)}
-            disabled={currentPage === 1}
-            className={`cursor-pointer select-none hover:text-red-600 hover:bg-transparent flex items-center justify-center ${(currentPage===1 || currentPage===2) && "text-white/50 hover:text-white/50 hidden"}`}
+    <>
+      <Image
+        src="/comment.png"
+        width={1200}
+        height={1200}
+        alt="error"
+        className="w-[18rem] h-[18rem] max-lg:hidden"
+      />
+      <span className="overflow-hidden flex items-center justify-between flex-col w-full">
+        <span className="flex items-center justify-between w-full mb-4">
+          <Button
+            onClick={handleAddCommentClick}
+            className="bg-[#ff0000]/80 hover:bg-[#ff0000]/50"
           >
-            <FiChevronsLeft className="h-4 w-4" />
-          </PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationPrevious 
-            onClick={() => onPageChange(Math.max(1, currentPage - 1))}
-            disabled={currentPage === 1}
-            Previous={<GrPrevious size={15} />}
-            noIcon={true}
-            className={`cursor-pointer select-none hover:text-red-600 hover:bg-transparent flex items-center justify-center ${currentPage===1 && "text-white/50 hover:text-white/50 hidden"}`}
-          />
-        </PaginationItem>
+            Add comment
+          </Button>
+          <span className="flex items-center justify-end gap-x-3 mr-2 font-bold">
+            <p className="max-lg:hidden">Show Comments</p>
+            <ToggleComments isChecked={isVisible} onChange={handleToggle} />
+          </span>
+        </span>
+        <CommentTemplate data={sortedComments} />
+      </span>
 
-        {pageNumbers.map((number) => (
-          <PaginationItem key={number} className=" cursor-pointer select-none">
-            {Math.abs(currentPage - number) < 2 ? (
-              <PaginationLink 
-                onClick={() => onPageChange(number)}
-                className={currentPage === number ? "bg-red-500 hover:bg-red-600 text-white" : ""}
-              >
-                {number}
-              </PaginationLink>
-            ) : number === 2 || number === totalPages - 1 }
-          </PaginationItem>
-        ))}
-
-        <PaginationItem>
-          <PaginationNext 
-            onClick={() => onPageChange(Math.min(totalPages, currentPage + 1))}
-            disabled={currentPage === totalPages}
-            Next={<GrNext size={15} />}
-            noIcon={true}
-            className={`cursor-pointer select-none hover:text-red-600 hover:bg-transparent flex items-center justify-center ${currentPage===totalPages && "text-white/50 hover:text-white/50 hidden "}`}
-          />
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink 
-            onClick={() => onPageChange(totalPages)}
-            disabled={currentPage === totalPages}
-            className={`cursor-pointer select-none hover:text-red-600 hover:bg-transparent flex items-center justify-center ${(currentPage===totalPages || currentPage===totalPages-1) && "text-white/50 hover:text-white/50  hidden"}`}
-          >
-            < FiChevronsRight className="h-4 w-4" />
-          </PaginationLink>
-        </PaginationItem>
-      </PaginationContent>
-    </Pagination>
+      {addCommentSpan && (
+        <AddCommentForm
+          setAddCommentSpan={setAddCommentSpan}
+          animeId={animeId}
+        />
+      )}
+    </>
   );
 };
 
-export default PaginationComponent;
+export default ViewComment;

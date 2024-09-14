@@ -24,19 +24,19 @@ const TopAnime = () => {
   if(!data) return <SkeletonLoader limit={limit}/>
 
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col w-full ">
       <div className="flex flex-col">
         {data?.map((anime, index) => {
           return index == 0 ? (
-            <Link href={`${anime?.mal_id}`} className="mb-4">
-              <div className="w-full dark:bg-white bg-[#272e41] flex relative">
-                <div className="w-[75%] h-auto">
+            <Link href={`${anime?.mal_id}`} className="mb-4  group">
+              <div className="w-full dark:bg-white bg-[#272e41] flex relative ">
+                <div className="w-[75%] h-auto overflow-hidden">
                   {anime.images?.jpg?.large_image_url && (
                     <Image
                       src={anime.images?.jpg?.large_image_url}
                       width={2400}
                       height={2400}
-                      className="w-full aspect-[5/3] object-cover"
+                      className="w-full aspect-[5/3] object-cover scale-105  group-hover:scale-[1.07] group-hover:contrast-110 animation"
                       alt={anime.title_english || anime.title}
                     />
                   )}
@@ -46,7 +46,7 @@ const TopAnime = () => {
                   <p className="bg-red-500 h-1 w-[3.2rem]"></p>
                 </div>
               </div>
-              <span className="flex flex-col py-4 px-2 gap-y-3 bg-bgtop">
+              <span className="flex flex-col py-4 px-2 gap-y-3 bg-bgtop group-hover:bg-[#2126358b] ">
                 <p className="w-full truncate">
                   {anime?.title_english || anime?.title}
                 </p>
