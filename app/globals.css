@@ -3,16 +3,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Macondo&display=swap");
 @import "@/styles/FullPageLoader.css";
+@import "@/styles/ViewAll.css";
+@import "@/styles/AddCommentAnime.css";
 
-.grid {
-  overflow-y: visible; /* Prevents scrolling */
-}
 
-.viewAllbg-glass {
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-}
 
 @font-face {
   font-family: Plutoregular;
@@ -196,13 +190,6 @@
   -webkit-backdrop-filter: blur(5.5px);
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.18);
-}
-
-.viewallstaff {
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  backdrop-filter: blur(9px);
-  -webkit-backdrop-filter: blur(9px);
-  border-radius: 10px;
 }
 
 .glass {

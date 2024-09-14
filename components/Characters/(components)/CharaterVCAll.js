@@ -74,7 +74,7 @@ const CharacterVC = ({ characters, selectedLanguage, itemsPerPage = 8 }) => {
       </div>
 
       {totalPages > 1 && (
-        <div className="mt-4 py-2 bg-[#1c1c1ccf]">
+        <div className="py-2 bg-[#1c1c1ccf]">
           <PaginationComponent
             currentPage={currentPage}
             totalPages={totalPages}

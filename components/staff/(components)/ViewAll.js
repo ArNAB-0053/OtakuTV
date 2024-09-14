@@ -1,55 +1,94 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Fetchstaff from "./Fetchstaff";
-import { ImCross } from "react-icons/im";
 import { Button } from "../../ui/button";
 import SearchBar from "../../Search/SearchBar";
+import PaginationComponent from "./PaginationComponent";
+import { GiCrossMark } from "react-icons/gi";
 
 const ViewAll = ({ isViewingAll, searchTerm, handleCloseStaff, handleSearchChange, filteredStaff, getPos }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [staffPerPage] = useState(9);
+  const [isVisible, setIsVisible] = useState(false);
+
+  const indexOfLastStaff = currentPage * staffPerPage;
+  const indexOfFirstStaff = indexOfLastStaff - staffPerPage;
+  const currentStaff = filteredStaff.slice(indexOfFirstStaff, indexOfLastStaff);
+
+  const totalPages = Math.ceil(filteredStaff.length / staffPerPage);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm]);
+
+  useEffect(() => {
+    if (isViewingAll) {
+      setIsVisible(true);
+    } else {
+      const timer = setTimeout(() => {
+        setIsVisible(false);
+      }, 300); 
+      return () => clearTimeout(timer);
+    }
+  }, [isViewingAll]);
+
+  const handleClose = () => {
+    setIsVisible(false);
+    setTimeout(handleCloseStaff, 300); 
+  };
+
+  if (!isViewingAll && !isVisible) return null;
+
   return (
-    <>
-      {isViewingAll && (
-        <div className="viewallstaff bg-background/25 fixed top-[50%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 w-screen h-screen overflow-hidden flex items-center justify-center z-40">
-          <div className="w-[90%] h-[80%] md:w-[80%] md:h-[80%] lg:w-[60%] lg:h-[60%] bg-bgitem flex flex-col items-start justify-center lg:p-8 p-4 rounded-md">
-            <div className="flex items-start justify-between flex-col md:flex-row w-full mb-6 gap-y-3 relative">
-              <h3 className="text-3xl font-bold">Staff</h3>
-              <span className="w-[99%] md:w-[50%] border bg-transparent text-sm">
-                <SearchBar
-                  searchTerm={searchTerm}
-                  onSearchChange={handleSearchChange}
-                  searchwhat="staff"
-                  className="flex w-full items-center justify-start  px-4 py-2 border-solid border border-white/30 bg-transparent"
-                />
-              </span>
-              <Button
-                className="bg-red-600 text-white hover:text-red-600 hover:bg-slate-200 absolute right-0 md:relative"
-                onClick={handleCloseStaff}
-              >
-                <ImCross />
-              </Button>
-            </div>
-            <span className="flex flex-wrap items-start justify-start gap-x-16 gap-y-6 w-full h-full overflow-auto overflow-x-hidden scrollbar-thin">
-              {filteredStaff?.length > 0 ? (
-                filteredStaff.map((staffff) => {
-                  return (
-                    <Fetchstaff
-                      key={staffff.person?.url}
-                      url={staffff.person?.url}
-                      image_url={staffff?.person?.images?.jpg.image_url}
-                      positions={getPos(staffff.positions)}
-                      name={staffff.person?.name.replace(/,/g, "")}
-                    />
-                  );
-                })
-              ) : (
-                <h1 className="text-center w-full text-muted">
-                  No result found
-                </h1>
-              )}
-            </span>
-          </div>
+    <div className={`first-div viewallstaff ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+      <div className={`second-div ${isVisible ? 'translate-y-0' : '-translate-y-20'}`}>
+        <div className="third-div">
+          <span className="w-[99%] md:w-[50%] border bg-transparent text-sm">
+            <SearchBar
+              searchTerm={searchTerm}
+              onSearchChange={handleSearchChange}
+              searchwhat="staff"
+              className="flex w-full items-center justify-start px-4 py-2 border-solid border border-white/30 bg-transparent rounded-full"
+            />
+          </span>
+          <Button
+            className="absolute top-2 right-2 z-[9997] bg-transparent hover:bg-transparent"
+            onClick={handleClose}
+          >
+            <GiCrossMark
+              size={28}
+              color="red"
+              className="hover:brightness-75 brightness-100 animation"
+            />
+          </Button>
         </div>
-      )}
-    </>
+        <span className="flex flex-wrap items-start justify-start gap-x-16 gap-y-6 w-full h-[calc(100%-100px)] overflow-auto overflow-x-hidden scrollbar-thin">
+          {currentStaff?.length > 0 ? (
+            currentStaff.map((staffff) => (
+              <Fetchstaff
+                key={staffff.person?.url}
+                url={staffff.person?.url}
+                image_url={staffff?.person?.images?.jpg.image_url}
+                positions={getPos(staffff.positions)}
+                name={staffff.person?.name.replace(/,/g, "")}
+              />
+            ))
+          ) : (
+            <h1 className="text-center w-full text-muted">No result found</h1>
+          )}
+        </span>
+        <div className="mt-4 w-full">
+          <PaginationComponent
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
+        </div>
+      </div>
+    </div>
   );
 };
 

@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .viewallstaff {
+    @apply transition-opacity duration-300 ease-out;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(9px);
+    -webkit-backdrop-filter: blur(9px);
+    border-radius: 10px;
+  }
+
+  .first-div {
+    @apply bg-background/25 fixed inset-0 flex items-center justify-center z-40 transition-opacity duration-300;
+  }
+
+  .second-div {
+    @apply w-[90%] h-[90vh] lg:h-auto md:w-[60%] lg:w-[90%] xl:w-[60%] p-4 lg:p-7 viewAllbg-glass bg-gradient-to-r from-[#000000e1] to-[#1c1c1ccf] flex flex-col rounded-xl overflow-hidden transition-transform duration-300 ease-out transform;
+    transform: translateY(-100%);
+  }
+
+  .third-div {
+    @apply flex items-start justify-center flex-col md:flex-row w-full mb-6 gap-y-3 relative;
+  }
+  
+  .viewAllbg-glass {
+    @apply transition-transform duration-300 ease-out;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+}
