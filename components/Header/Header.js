@@ -53,7 +53,13 @@ const Header = () => {
               <Link href="/Genre"> Genre </Link>
             </li>
             <li>
-              <Link href={`/Favourite/${user?.id}`} className="flex items-center justify-center gap-x-2"> <FaHeart color="red" /> Favourite </Link>
+              <Link
+                href={`/Favourite/${user?.id}`}
+                className="flex items-center justify-center gap-x-2"
+              >
+                {" "}
+                <FaHeart color="red" /> Favourite{" "}
+              </Link>
             </li>
             <li>
               <SignedOut>

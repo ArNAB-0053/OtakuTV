@@ -6,6 +6,8 @@ import NextTopLoader from "nextjs-toploader";
 import Header from "@/components/Header/Header";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
+import Footer from "@/components/Footer/Footer";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -35,14 +37,13 @@ export default function RootLayout({ children }) {
           },
         },
       }}
-
       publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
     >
       <html
         lang="en"
         className="overflow-x-hidden dark scroll-smooth scrollbar-thin scrollbar-thumb-scrollbarColor !scrollbar-track-transparent scrollbar-rounded-full"
       >
-        <body className={`${inter.className} dark overflow-x-hidden`}>
+        <body className={`${inter.className} dark overflow-x-hidden flex flex-col min-h-screen`}>
           <NextTopLoader className="z-[99999]" />
           <ThemeProvider
             attribute="class"
@@ -52,7 +53,8 @@ export default function RootLayout({ children }) {
           >
             <DeviceWidthProvider>
               <Header />
-              <main className="mt-16">{children}</main>
+              <main className="mt-16 flex-grow">{children}</main> {/* Added flex-grow */}
+              <Footer />
             </DeviceWidthProvider>
           </ThemeProvider>
         </body>

@@ -1,20 +1,23 @@
 import { useState } from "react";
 import { FaTimes } from "react-icons/fa";
-import { toast, Bounce } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast, Bounce } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const DeleteFav = ({ userID, animeID, onDelete }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleDelete = async () => {
+  const handleDelete = async (e) => {
+    // Prevent any default behavior (like navigation)
+    e.preventDefault();
+
     if (isSubmitting) return;
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('/api/Fav', {
-        method: 'DELETE',
+      const response = await fetch("/api/Fav", {
+        method: "DELETE",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ userID, animeID }),
       });
@@ -22,7 +25,7 @@ const DeleteFav = ({ userID, animeID, onDelete }) => {
       const result = await response.json();
 
       if (response.ok) {
-        toast.success('Favorite removed successfully.', {
+        toast.success("Favorite removed successfully.", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -35,7 +38,7 @@ const DeleteFav = ({ userID, animeID, onDelete }) => {
         });
         onDelete(); // Trigger the callback to refresh the list
       } else {
-        toast.error('Error removing favorite: ' + result.message, {
+        toast.error("Error removing favorite: " + result.message, {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -49,7 +52,7 @@ const DeleteFav = ({ userID, animeID, onDelete }) => {
       }
     } catch (error) {
       console.error("Error:", error);
-      toast.error('Error: ' + error.message, {
+      toast.error("Error: " + error.message, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -66,13 +69,16 @@ const DeleteFav = ({ userID, animeID, onDelete }) => {
   };
 
   return (
-    <button
-      onClick={handleDelete}
-      className="bg-[#ff0000] text-white rounded-full p-2 hover:bg-red-700 transition-colors duration-300"
-      disabled={isSubmitting}
-    >
-      <FaTimes size={16} />
-    </button>
+    <div>
+      <button
+        type="button" // Ensure it doesn't act as a submit button
+        onClick={handleDelete}
+        className="bg-[#ff0000] text-white rounded-full p-2 hover:bg-red-700 transition-colors duration-300"
+        disabled={isSubmitting}
+      >
+        <FaTimes size={16} />
+      </button>
+    </div>
   );
 };
 

@@ -2,22 +2,25 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Macondo&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+CU:wght@100..400&display=swap');
 @import "@/styles/FullPageLoader.css";
 @import "@/styles/ViewAll.css";
 @import "@/styles/AddCommentAnime.css";
 
 
-
 @font-face {
   font-family: Plutoregular;
   src: url("/public/Fonts/plutoregular.woff2") format("woff2"),
-    url("/public/Fonts/plutoregular.woff") format("woff");
+  url("/public/Fonts/plutoregular.woff") format("woff");
 }
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+.PlaywriteCU {
+  font-family: "Playwrite CU", cursive;
+}
 /* Using 
   => destructive -> Anime details TableCell Heading
   => muted -> Anime details TableCell text 

@@ -23,8 +23,8 @@ const ViewFav = ({ userID }) => {
   }
 
   return (
-    <div className="">
-      <ul className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-6 w-full h-full place-items-center overflow-hidden">
+    <div className="p-6 md:px-28 lg:px-32 xl:px-72 w-full">
+      <ul className="grid grid-cols-[repeat(auto-fit,minmax(9rem,1fr))] gap-6 w-full h-full place-items-center overflow-hidden">
         {data.favorites.map((favorite) => (
           <Link
             href={`/anime/animedetails/${favorite.animeID}`}
