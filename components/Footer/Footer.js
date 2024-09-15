@@ -45,7 +45,7 @@ const Footer = () => {
                 Terms of Service
               </Link>
             </li>
-            <LuDot color="red" size={24}  />
+            <LuDot color="red" size={24}  className="max-md:hidden" />
             <li>
               <Link
                 href="/PrivacyPolicy"
@@ -54,7 +54,7 @@ const Footer = () => {
                 Privacy Policy
               </Link>
             </li> 
-            <LuDot color="red" size={24} className="max-md:hidden" />
+            <LuDot color="red" size={24} />
             <li>
               <Link
                 href="/contact"

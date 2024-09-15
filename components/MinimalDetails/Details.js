@@ -6,7 +6,7 @@ import { FaStar } from "react-icons/fa";
 import Animedetail from "@/components/MinimalDetails/Animedetail";
 import { useState } from "react";
 import { Duration, rated } from "../SimpleComponents";
-import Fav from "./Favourite/AddFav";
+import Fav from "../Favourite/AddFav";
 import SkeletonLoader from "./loading";
 
 const Details = ({ anime }) => {

@@ -81,7 +81,6 @@ const Animes = ({
                 18+
               </p>
             )}
-            <h3>{roundedValue}</h3>
           </Link>
         ))}
       </div>

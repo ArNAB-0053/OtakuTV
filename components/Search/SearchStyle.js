@@ -22,7 +22,7 @@ const SearchStyle = ({
             src={anime?.images?.jpg?.large_image_url}
             width={2400}
             height={2400}
-            className="w-[4.5rem] h-[5.5rem] aspect-[1/4] object-fill rounded-sm"
+            className="w-[4.5rem] h-[5.5rem] aspect-[1/4] object-cover rounded-sm"
             alt={anime.title_english || anime.title}
           />
         )}

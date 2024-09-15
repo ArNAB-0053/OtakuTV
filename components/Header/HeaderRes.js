@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { CgProfile } from "react-icons/cg";
 import SearchSuggestions from "../Search/SearchSuggestions";
 import { useAnimeSearch } from "@/hooks/useAnimeSearch";
 import AnimeSearch from "../Search/AnimeSearch";
@@ -7,26 +6,17 @@ import { usePathname } from "next/navigation";
 import { IoIosSearch } from "react-icons/io";
 import { useState } from "react";
 import { Button } from "../ui/button";
-import { useUser } from "@clerk/nextjs"; // Ensure you import useUser from Clerk
+import { SignedIn, SignedOut, SignInButton, UserButton, useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import MoreThings from "./Sidebar";
 
 const HeaderRes = () => {
-  const { user, isSignedIn } = useUser(); // Use isSignedIn to check if the user is signed in
+  const { user } = useUser();
   const pathname = usePathname();
   const [isClicked, setIsClicked] = useState(false);
   const { search, suggestions, handleSearchChange, handleSuggestionClick } =
     useAnimeSearch();
   const isHomePage = pathname === "/";
-
-  // Dynamically create menu items based on whether the user is signed in
-  const menuItems = [
-    { href: "/Popular", label: "Most Popular" },
-    { href: "/Airing", label: "Airing" },
-    { href: "/Upcoming", label: "Upcoming" },
-    { href: "/Recent", label: "Recent" },
-    { href: `/Favourite/${user?.id}`, label: "Favourite" }
-  ];
 
   const handleSearchClicked = () => {
     setIsClicked((prevState) => !prevState); // Toggle the state
@@ -36,9 +26,9 @@ const HeaderRes = () => {
     <header className="xl:hidden flex items-center justify-center flex-col dark:bg-gray-900/50 z-10 ">
       <nav className="w-full flex items-center justify-start flex-col absolute left-0 top-0 dark:bg-gray-900/50 z-[9999] ">
         <ul className="flex items-center justify-between padding py-4 w-screen">
-        <MoreThings user={user} />
+          <MoreThings user={user} />
           <li className="text-xl font-bold flex items-center justify-between">
-          <Link href="/" className="w-[9rem] font-bold text-xl ">
+            <Link href="/" className="w-[9rem] font-bold text-xl ">
               <Image
                 src="/logoo.svg"
                 width={1200}
@@ -55,7 +45,12 @@ const HeaderRes = () => {
               </Button>
             )}
             <li>
-              <CgProfile size={26} />
+              <SignedOut>
+                <SignInButton className="uppercase bg-bgitem px-4 py-2 rounded-sm text-sm" />
+              </SignedOut>
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
             </li>
           </span>
         </ul>

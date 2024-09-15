@@ -2,7 +2,7 @@ import "@/styles/Privacy_Term.css";
 
 const TermsAndServices = () => {
   return (
-    <div className="background-Term-Policy mt-20 p-8 md:p-16 text-white/70">
+    <div className="background-Term-Policy mt-4 lg:mt-[2.1rem] p-8 md:p-16 text-white/70">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-bold mb-6">Terms and Services</h1>
         <p className="mb-4">Last Updated: <strong>September 2024</strong></p>
