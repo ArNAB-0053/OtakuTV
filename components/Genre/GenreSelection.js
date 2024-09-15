@@ -51,12 +51,12 @@ const GenreSelection = ({ onGenreChange }) => {
           placeholder="Search genres..."
           value={searchTerm}
           onChange={handleSearchChange}
-          className="mb-2 px-3 py-2 text-sm border rounded w-full lg:w-[40vw] appearance-none outline-none bg-bgitem placeholder:text-white/50"
+          className="mb-2 px-3 py-2 text-sm border rounded-full w-full lg:w-[40vw] appearance-none outline-none bg-bgitem placeholder:text-white/50"
         />
         <Button
           onClick={toggleGenreVisibility}
           disabled={isSearching}
-          className="text-white/50 hover:text-white/70"
+          className="text-white/50 hover:text-white/70 rounded-full"
         >
           {isGenreVisible ? "Hide Genre" : "All Genre"}
         </Button>

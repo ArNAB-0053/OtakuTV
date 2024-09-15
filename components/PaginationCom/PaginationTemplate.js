@@ -17,7 +17,7 @@ const PaginationTemplate = ({
   extraParams = "" 
 }) => {
   const pathname = usePathname();
-  const isHomePage = pathname === "/";
+  const isHomePage = pathname === "/Home";
   const [page, setPage] = useState(1);
   const handlePageChange = (newPage) => {
     setPage(newPage);

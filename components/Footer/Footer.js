@@ -9,15 +9,19 @@ const Footer = () => {
       <div className="flex items-center justify-between max-lg:justify-center max-lg:flex-col">
         <div className="flex flex-col max-lg:items-center items-start justify-center text-sm">
           <span className="w-full flex items-center justify-start max-lg:justify-center">
-            <Image
-              src="/logoo.svg"
-              alt="logo"
-              width={1200}
-              height={1200}
-              className="w-36 h-auto mb-4"
-            />
+            <Link href="/" className="w-36 font-bold text-xl ">
+              <Image
+                src="/logoo.svg"
+                alt="logo"
+                width={1200}
+                height={1200}
+                className="w-full h-auto mb-4"
+              />
+            </Link>
           </span>
-          <p>&copy; {new Date().getFullYear()} Otaku.tv. All rights reserved.</p>
+          <p>
+            &copy; {new Date().getFullYear()} Otaku.tv. All rights reserved.
+          </p>
         </div>
 
         <div className="flex flex-col items-center lg:items-end w-[60%] max-lg:w-full">
@@ -30,10 +34,11 @@ const Footer = () => {
           <ul className=" mt-3 text-sm flex items-center justify-center gap-x-4 text-center max-md:grid max-md:grid-cols-3 place-items-center ">
             <li>
               <Link
-                href="/about"
+                href="https://arnab-here.vercel.app/"
                 className="hover:text-[#ff0000] transition-colors"
+                target='_blank'
               >
-                About Us
+                About
               </Link>
             </li>
             <LuDot color="red" size={24} />
@@ -45,7 +50,7 @@ const Footer = () => {
                 Terms of Service
               </Link>
             </li>
-            <LuDot color="red" size={24}  className="max-md:hidden" />
+            <LuDot color="red" size={24} className="max-md:hidden" />
             <li>
               <Link
                 href="/PrivacyPolicy"
@@ -53,16 +58,16 @@ const Footer = () => {
               >
                 Privacy Policy
               </Link>
-            </li> 
+            </li>
             <LuDot color="red" size={24} />
             <li>
               <Link
-                href="/contact"
+                href="/FAQs"
                 className="hover:text-[#ff0000] transition-colors"
               >
                 FAQs
               </Link>
-            </li>                       
+            </li>
           </ul>
         </div>
       </div>

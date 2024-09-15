@@ -16,14 +16,15 @@ const HeaderRes = () => {
   const [isClicked, setIsClicked] = useState(false);
   const { search, suggestions, handleSearchChange, handleSuggestionClick } =
     useAnimeSearch();
-  const isHomePage = pathname === "/";
+  const isHomePage = pathname === "/Home";
+  const isIndexPage = pathname === "/";
 
   const handleSearchClicked = () => {
     setIsClicked((prevState) => !prevState); // Toggle the state
   };
 
   return (
-    <header className="xl:hidden flex items-center justify-center flex-col dark:bg-gray-900/50 z-10 ">
+    <header className={`${isIndexPage ? 'hidden bg-transparent' : 'xl:hidden dark:bg-gray-900/50'} flex items-center justify-center flex-col  z-10 `}>
       <nav className="w-full flex items-center justify-start flex-col absolute left-0 top-0 dark:bg-gray-900/50 z-[9999] ">
         <ul className="flex items-center justify-between padding py-4 w-screen">
           <MoreThings user={user} />

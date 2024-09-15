@@ -21,11 +21,12 @@ const Header = () => {
   const pathname = usePathname();
   const { search, suggestions, handleSearchChange, handleSuggestionClick } =
     useAnimeSearch();
-  const isHomePage = pathname === "/";
+  const isHomePage = pathname === "/Home";
+  const isIndexPage = pathname === "/";
   const { user } = useUser();
   return (
     <>
-      <header className="max-xl:hidden bg-white/50 dark:bg-gray-900/50 py-4 absolute w-screen padding overflow-x-hidden z-[9999]">
+      <header className={` ${isIndexPage ? 'hidden dark:bg-transparent' : "max-xl:hidden dark:bg-gray-900/50"} bg-white/50  py-4 absolute w-screen padding overflow-x-hidden z-[9998]`}>
         <nav className="flex items-start xl:items-center justify-between gap-x-10 gap-y-4 max-xl:flex-col">
           <div className="w-[42rem] flex items-center justify-start">
             <MoreThings user={user} />
@@ -39,7 +40,7 @@ const Header = () => {
               />
             </Link>
             {!isHomePage && (
-              <span className="w-[25rem] bg-black/20 border border-[#47567c5c]">
+              <span className="w-[25rem] bg-black/20 border border-none">
                 <AnimeSearch
                   search={search}
                   onSearchChange={handleSearchChange}

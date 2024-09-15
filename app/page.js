@@ -1,9 +1,12 @@
-import React from 'react'
+import Banner from "@/components/IndexPage/Banner";
+import React from "react";
 
 const page = () => {
   return (
-    <div>page</div>
-  )
-}
+    <>
+      <Banner />
+    </>
+  );
+};
 
-export default page
+export default page;

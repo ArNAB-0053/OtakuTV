@@ -50,6 +50,9 @@ const MoreThings = ({ user }) => {
           setIsOpen={setIsOpen}
         />
         <SheetTemplate link="/Recent" title="added" setIsOpen={setIsOpen} />
+        <SheetTemplate link="/Genre" title="genre" setIsOpen={setIsOpen} />
+        <SheetTemplate link="/Movies" title="Movies" setIsOpen={setIsOpen} />
+        <SheetTemplate link="/TV" title="TV Series" setIsOpen={setIsOpen} />
         <SheetTemplate
           link={`/Favourite/${user?.id}`}
           title="favourite"

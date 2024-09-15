@@ -41,7 +41,7 @@ export default function RootLayout({ children }) {
     >
       <html
         lang="en"
-        className="overflow-x-hidden dark scroll-smooth scrollbar-thin scrollbar-thumb-scrollbarColor !scrollbar-track-transparent scrollbar-rounded-full"
+        className="overflow-x-hidden dark scroll-smooth scrollbar-thin scrollbar-thumb-scrollbarColor !scrollbar-track-transparent scrollbar-rounded-full "
       >
         <body className={`${inter.className} dark overflow-x-hidden flex flex-col min-h-screen`}>
           <NextTopLoader className="z-[99999]" />
