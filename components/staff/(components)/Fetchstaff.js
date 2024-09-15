@@ -12,7 +12,7 @@ const Fetchstaff = ({ name, positions, image_url, url, width='' }) => {
         src={image_url}
         width={1200}
         height={1200}
-        className="w-[3rem] lg:w-[4.5rem] h-[3rem] lg:h-[4.5rem] object-cover object-top aspect-square rounded-full border "
+        className="w-[2.3rem] lg:w-[4.5rem] h-[2.3rem] lg:h-[4.5rem] object-cover object-top aspect-square rounded-full border "
         alt="Staff Image"
         draggable="false"
       />

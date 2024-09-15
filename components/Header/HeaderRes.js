@@ -11,7 +11,7 @@ import Image from "next/image";
 import MoreThings from "./Sidebar";
 
 const HeaderRes = () => {
-  const { user } = useUser();
+  const { user, isSignedIn } = useUser();
   const pathname = usePathname();
   const [isClicked, setIsClicked] = useState(false);
   const { search, suggestions, handleSearchChange, handleSuggestionClick } =
@@ -24,7 +24,7 @@ const HeaderRes = () => {
   };
 
   return (
-    <header className={`${isIndexPage ? 'hidden bg-transparent' : 'xl:hidden dark:bg-gray-900/50'} flex items-center justify-center flex-col  z-10 `}>
+    <header className={`${isIndexPage ? 'hidden bg-transparent' : 'lg:hidden dark:bg-gray-900/50'} flex items-center justify-center flex-col  z-10 `}>
       <nav className="w-full flex items-center justify-start flex-col absolute left-0 top-0 dark:bg-gray-900/50 z-[9999] ">
         <ul className="flex items-center justify-between padding py-4 w-screen">
           <MoreThings user={user} />
@@ -40,14 +40,14 @@ const HeaderRes = () => {
             </Link>
           </li>
           <span className="flex items-center justify-end gap-x-4">
-            {!isHomePage && (
-              <Button onClick={handleSearchClicked}>
+            {!isHomePage && isSignedIn && (
+              <Button onClick={handleSearchClicked} className="max-xs:hidden">
                 <IoIosSearch size={26} />
               </Button>
             )}
             <li>
               <SignedOut>
-                <SignInButton className="uppercase bg-bgitem px-4 py-2 rounded-sm text-sm" />
+                <SignInButton className="uppercase bg-bgitem px-4 py-2 rounded-sm text-xs" />
               </SignedOut>
               <SignedIn>
                 <UserButton />
@@ -55,8 +55,8 @@ const HeaderRes = () => {
             </li>
           </span>
         </ul>
-        {!isHomePage && isClicked && (
-          <span className="w-full bg-black/20 border border-[#47567c5c] px-4">
+        {!isHomePage && isClicked && isSignedIn && (
+          <span className={`w-full bg-black/20 border border-[#47567c5c] px-4 max-xs:hidden`}>
             <AnimeSearch
               search={search}
               onSearchChange={handleSearchChange}

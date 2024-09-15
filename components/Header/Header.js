@@ -26,8 +26,14 @@ const Header = () => {
   const { user } = useUser();
   return (
     <>
-      <header className={` ${isIndexPage ? 'hidden dark:bg-transparent' : "max-xl:hidden dark:bg-gray-900/50"} bg-white/50  py-4 absolute w-screen padding overflow-x-hidden z-[9998]`}>
-        <nav className="flex items-start xl:items-center justify-between gap-x-10 gap-y-4 max-xl:flex-col">
+      <header
+        className={` ${
+          isIndexPage
+            ? "hidden dark:bg-transparent"
+            : "max-lg:hidden dark:bg-gray-900/50"
+        } bg-white/50  py-4 absolute w-screen padding overflow-x-hidden z-[9998]`}
+      >
+        <nav className="flex items-start xl:items-center justify-between gap-x-10 gap-y-4 max-lg:flex-col">
           <div className="w-[42rem] flex items-center justify-start">
             <MoreThings user={user} />
             <Link href="/" className="w-[15rem] font-bold text-xl ">
@@ -49,8 +55,11 @@ const Header = () => {
             )}
           </div>
 
-          <ul className="max-xl:hidden flex w-auto items-center justify-evenly gap-x-7 uppercase font-medium">
-            <li>
+          <ul className="max-lg:hidden flex w-auto items-center justify-evenly gap-x-7 uppercase font-medium">
+            <li className='max-xl:hidden'>
+              <Link href="/Home"> Home </Link>
+            </li>
+            <li className='max-xl:hidden'>
               <Link href="/Genre"> Genre </Link>
             </li>
             <li>

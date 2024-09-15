@@ -78,7 +78,7 @@ const Details = ({ anime }) => {
         <div className="text-sm flex items-start justify-start flex-col gap-y-4 w-full max-md:mt-16">
           <div className="w-full flex items-start justify-start h-fit flex-col gap-y-5 xl:flex-row">
             <div className="w-full flex items-center md:items-start justify-start flex-col gap-y-4 h-fit">
-              <span className="mt-4 md:mt-0 text-start flex items-center justify-center text-xl md:text-2xl lg:text-4xl gap-x-2 ">
+              <span className="mt-4 md:mt-0 text-start flex items-center justify-center text-2xl lg:text-4xl gap-x-2 ">
                 <h1 className="font-bold flex text-start text-muted-foreground uppercase">
                   {anime.title_english || anime.title}
                 </h1>
@@ -150,7 +150,7 @@ const Details = ({ anime }) => {
             eps={anime.episodes}
             japanese={anime.title_japanese}
             themes={
-              <span className="flex items-center justify-start flex-wrap gap-2">
+              <span className="flex items-center justify-start flex-wrap gap-2 w-full">
                 {anime.themes?.length > 0
                   ? anime.themes.map((theme, index) => (
                       <span

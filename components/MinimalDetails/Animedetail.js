@@ -115,7 +115,7 @@ const Animedetail = ({
             <TableBody className="tablebody">
               <TableRow className="TableRow">
                 <TableCell className="TableCell font-medium">Themes:</TableCell>
-                <TableCell className="TableCellText text-left ">
+                <TableCell className="TableCellText text-left max-sm:w-[60vw] text-xs">
                   {themes}
                 </TableCell>
               </TableRow>
@@ -123,7 +123,7 @@ const Animedetail = ({
             <TableBody className="tablebody">
               <TableRow className="TableRow">
                 <TableCell className="TableCell font-medium">Genres:</TableCell>
-                <TableCell className="TableCellText text-left max-md:w-[24rem]">
+                <TableCell className="TableCellText text-left max-sm:w-[60vw] text-xs">
                   {genres}
                 </TableCell>
               </TableRow>
@@ -136,7 +136,7 @@ const Animedetail = ({
         <TableBody className="tablebody">
           <TableRow className="TableRow">
             <TableCell className="TableCell font-medium">Producers:</TableCell>
-            <TableCell className="TableCellText text-left md: w-[28rem]">
+            <TableCell className="TableCellText text-left max-sm:w-[60vw] md:w-[28rem] text-xs">
               {producers}
             </TableCell>
           </TableRow>

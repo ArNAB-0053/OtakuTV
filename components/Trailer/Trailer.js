@@ -4,7 +4,7 @@ import Image from "next/image";
 const Trailer = ({ vdolink }) => {
   return (
     <div className="w-full flex items-start justify-start flex-col gap-x-8 mb-16">
-      <h1 className="text-3xl font-bold mb-4 uppercase">Trailer</h1>
+      <h1 className="max-md:text-xl md:text-2xl lg:text-3xl font-bold mb-4 uppercase">Trailer</h1>
       <span className="w-full h-auto bg-white aspect-video flex items-start justify-start select-none">
         {vdolink ? (
           <iframe

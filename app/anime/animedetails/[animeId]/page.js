@@ -22,7 +22,6 @@ const Page = async ({ params }) => {
 
   // if (!anime) return <Loading />;
 
-
   return (
     <div className="w-screen overflow-x-hidden flex items-start justify-start flex-col padding -mt-16 relative">
       <Details anime={anime} />
@@ -30,20 +29,26 @@ const Page = async ({ params }) => {
       <div className="w-full flex items-start justify-start h-auto gap-6 flex-col xl:flex-row">
         <div className="w-full mt-10 xl:w-[65%]">
           <Trailer vdolink={anime.trailer?.embed_url} />
-          <h1 className="text-3xl font-bold mb-1 mt-16 uppercase">Characters & Voice actors</h1>
+          <h1 className="max-md:text-xl md:text-2xl lg:text-3xl font-bold mb-1 mt-16 uppercase">
+            Characters & Voice actors
+          </h1>
           <div className="w-[80%] h-[1px] bg-white/30 mb-3"></div>
           <Characters animeID={anime.mal_id} />
-          <h1 className="text-3xl font-bold mb-1 mt-16 uppercase">Staff</h1>
+          <h1 className="max-md:text-xl md:text-2xl lg:text-3xl font-bold mb-1 mt-16 uppercase">
+            Staff
+          </h1>
           <div className="w-[80%] h-[1px] bg-white/30 mb-3"></div>
           <Staff animeID={anime.mal_id} />
-          <h1 className="text-3xl font-bold mb-1 mt-16 uppercase">
+          <h1 className="max-md:text-xl md:text-2xl lg:text-3xl font-bold mb-1 mt-16 uppercase">
             Recommended
           </h1>
           <div className="w-[80%] h-[1px] bg-white/30 mb-3"></div>
           <Recom animeId={anime.mal_id} />
         </div>
-        <div className="w-full -mt-16 xl:mt-10 xl:w-[35%]">
-          <h1 className="text-3xl font-bold mb-4 uppercase">Top Anime</h1>
+        <div className="w-full -mt-6 xl:mt-10 xl:w-[35%]">
+          <h1 className="max-md:text-xl md:text-2xl lg:text-3xl font-bold mb-4 uppercase">
+            Top Anime
+          </h1>
           <TopAnime />
         </div>
       </div>
