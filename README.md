@@ -1,7 +1,7 @@
 # Project Name: Otaku.tv
 
 ## Project Description:
-Otaku.tv is a platform where users can discover, review, and interact with anime. The site fetches anime data using the Jikan API and allows users to manage favorites, leave comments, and choose avatars. Built with Next.js, it provides a responsive and engaging experience.
+Otaku.tv is a personal project aimed at anime enthusiasts to review and discuss anime. It fetches anime data from the Jikan API and allows users to interact with anime. Mainly, it's built using Next.js and Tailwind CSS.
 
 ## Live URL:
 [otaku.tv](https://otaku-tv.vercel.app/)
