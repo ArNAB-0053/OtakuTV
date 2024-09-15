@@ -1,3 +1,4 @@
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import { toast, Bounce } from "react-toastify";
@@ -5,9 +6,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 const DeleteFav = ({ userID, animeID, onDelete }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
 
   const handleDelete = async (e) => {
-    // Prevent any default behavior (like navigation)
     e.preventDefault();
 
     if (isSubmitting) return;
@@ -36,7 +37,8 @@ const DeleteFav = ({ userID, animeID, onDelete }) => {
           theme: "colored",
           transition: Bounce,
         });
-        onDelete(); // Trigger the callback to refresh the list
+        onDelete({ animeID, success: true });
+        router.refresh();
       } else {
         toast.error("Error removing favorite: " + result.message, {
           position: "top-right",
@@ -49,6 +51,7 @@ const DeleteFav = ({ userID, animeID, onDelete }) => {
           theme: "colored",
           transition: Bounce,
         });
+        onDelete({ animeID, success: false, error: result.message });
       }
     } catch (error) {
       console.error("Error:", error);
@@ -63,6 +66,7 @@ const DeleteFav = ({ userID, animeID, onDelete }) => {
         theme: "colored",
         transition: Bounce,
       });
+      onDelete({ animeID, success: false, error: error.message });
     } finally {
       setIsSubmitting(false);
     }
