@@ -88,7 +88,7 @@ const Header = () => {
           suggestions={suggestions}
           search={search}
           onSuggestionClick={handleSuggestionClick}
-          className="absolute top-16 bg-bgitem w-[25rem] left-[23.6rem] z-[9999]"
+          className="absolute top-16 bg-bgitem w-[25rem] max-lg:hidden lg:left-[19rem] xl:left-[23.6rem] z-[9999]"
           widthpara="w-[14rem] md:w-[16rem]"
         />
       )}
